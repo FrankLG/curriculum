@@ -1,15 +1,16 @@
 <?php 
-    
+
+		include_once "bd.php";
+
     class Usuarios{
         public static function comprobarUsuario(){
             $dni = $_REQUEST["dni"];
             
-            $db = new Mysqli("localhost","root","","curriculumcv");
+            $db = new BD();
             $sql = "SELECT * FROM alumno WHERE dni='$dni'";
+            $resultado = $db->consulta($sql);
             
-            $resultado = $db->query($sql);
-            
-            if($resultado->num_rows == 1){
+            if(count($resultado) > 0){
               return true;
             }else{
               return false;
@@ -28,11 +29,14 @@
             $direccion = $_REQUEST["direccion"];
             $activo = $_REQUEST["activo"];
             
-            $db = new Mysqli("localhost","root","","curriculumcv");
-            
+            $db = new BD();
             $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal) VALUES('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo','$passal')";
             
-            $db->query($sql);
+            if ($db->ejecutar($sql) == 1)
+								$r = true;
+						else
+								$r =  false;
+					  return $r;
             
         }    
     }
