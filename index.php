@@ -6,9 +6,25 @@
     if(isset($_REQUEST["accion"]))
         $accion = $_REQUEST["accion"];
     else
-        $accion="registro";
+        $accion="mostrarLogin";
 
     switch($accion){
+        case 'mostrarLogin':    
+            Vistas::mostrar("login");
+            break;
+        case 'comprobarLogin':
+            $resultado= Usuarios::logueoAdmin($_REQUEST["user"], $_REQUEST["pass"]);
+            if($resultado){
+                echo "Vista administrador";
+            }else{
+				$resultado= Usuarios::logueoUser($_REQUEST["user"], $_REQUEST["pass"]);
+                if($resultado){
+					echo "vista usuario";
+				}else{
+					echo "nada";
+				}
+            }
+            break;
         case 'registro':
             Vistas::mostrar("formularioRegistro");
             break;

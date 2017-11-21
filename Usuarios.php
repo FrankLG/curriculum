@@ -39,6 +39,35 @@
 					  return $r;
             
         }    
+        
+        public static function logueoAdmin($user, $pass){
+            $db= new BD();
+            // primero comprobamos que si es un administrador
+            $sql= "SELECT * FROM admin WHERE username='$user' AND passad='$pass'";
+            //echo $sql;
+            $resultado = $db->consulta($sql);
+            
+            if(count($resultado) > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+		
+		public static function logueoUser($user, $pass){
+            $db= new BD();
+            // primero comprobamos que si es un administrador
+            $sql= "SELECT * FROM alumno WHERE dni='$user' AND passal='$pass'";
+            //echo $sql;
+            $resultado = $db->consulta($sql);
+            
+            if(count($resultado) > 0){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        
     }
     
 ?>

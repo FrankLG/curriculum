@@ -1,3 +1,3 @@
-		<p>Creado por: Francisco Linares González.</p>
+		<p>Creado por: Francisco Linares González y Miguel Ángel López Segura</p>
 	</body>
 </html>

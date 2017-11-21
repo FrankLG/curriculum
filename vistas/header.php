@@ -4,4 +4,3 @@
 		<title>Practica php</title>
 	</head>
 	<body>
-		<h1>Gestión de usuarios</h1>
