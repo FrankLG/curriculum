@@ -1,3 +1,14 @@
+<?php 
+    if(isset($datos["mensaje"])){
+        if($datos["tipoMensaje"]=="error"){
+            echo "<h1 style='color:red;'>".$datos['mensaje']."</h1>";    
+        }else{
+            echo "<h1 style='color:green;'>".$datos['mensaje']."</h1>";
+        }
+        
+    }
+?>
+
 <form  action="index.php">
     <h1>Logueo de usuario</h1><br>
     DNI <input type="text" maxlength="9" name="user" required><br>

@@ -19,9 +19,13 @@
             }else{
 				$resultado= Usuarios::logueoUser($_REQUEST["user"], $_REQUEST["pass"]);
                 if($resultado){
-					echo "vista usuario";
+                    if(Usuarios::primerLogueo()){
+                        Vistas::mostrar("formularioCurriculum");
+                    }else{
+                        
+                    }
 				}else{
-					echo "nada";
+					echo "nada por aqui";
 				}
             }
             break;
@@ -37,15 +41,13 @@
                 $r = Usuarios::crearUsuario();
                 $datos["tipoMensaje"]="correcto";
                 if ($r){
-									$datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
-									$datos["tipoMensaje"]="correcto";
-								}
-								else{
-									$datos["tipoMensaje"]="error";
-									$datos["mensaje"]="Error al crear usuario";
-								}
-									
-                Vistas::mostrar("formularioRegistro",$datos);
+				    $datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
+					$datos["tipoMensaje"]="correcto";
+					}else{
+						$datos["tipoMensaje"]="error";
+						$datos["mensaje"]="Error al crear usuario";
+					}				
+                Vistas::mostrar("login",$datos);
             }
                 
             break;
