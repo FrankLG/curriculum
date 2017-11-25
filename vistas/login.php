@@ -14,6 +14,6 @@
     DNI <input type="text" maxlength="9" name="user" required><br>
     contraseña <input type="text" name="pass" required><br>
     <input type="hidden" name="accion" value="comprobarLogin">
-    <input type="submit" value="Completar registro">
+    <input type="submit" value="loguearse">
 </form>
 <a href="index.php?accion=registro">Quiero darme de alta</a>

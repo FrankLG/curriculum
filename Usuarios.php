@@ -8,7 +8,7 @@
             
             $db = new BD();
             $sql = "SELECT * FROM alumno WHERE dni='$dni'";
-            $resultado = $db->consulta($sql);
+            $resultado = $db->consultar($sql);
             
             if(count($resultado) > 0){
               return true;
@@ -30,7 +30,7 @@
             $activo = $_REQUEST["activo"];
             
             $db = new BD();
-            $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal) VALUES('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo','$passal')";
+            $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal, validado) VALUES('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo','$passal', 0)";
             
             if ($db->ejecutar($sql) == 1)
 								$r = true;
@@ -45,11 +45,9 @@
             // primero comprobamos que si es un administrador
             $sql= "SELECT * FROM admin WHERE username='$dni' AND passad='$contra'";
             //echo $sql;
-            $resultado = $db->consulta($sql);
+            $resultado = $db->consultar($sql);
             
             if(count($resultado) > 0){
-               
-                
                 return true;
             }else{
                 return false;
@@ -61,31 +59,19 @@
             // primero comprobamos que si es un administrador
             $sql= "SELECT * FROM alumno WHERE dni='$dni' AND passal='$contra'";
             //echo $sql;
-            $resultado = $db->consulta($sql);
+            $resultado = $db->consultar($sql);
             
             if(count($resultado) > 0){
                 $sql = "SELECT alumnoid FROM alumno WHERE dni='$dni' ";
-                $resultado = $db->consulta($sql);
+                $resultado = $db->consultar($sql);
                 $resultado = $resultado["0"];
-                $_SESSION['id']=$resultado["0"];
-                
-                        
+                $_SESSION['id']=$resultado["0"];    
                 return true;
             }else{
                 return false;
             }
         }
-        public static function primerLogueo(){
-            
-            $db = new BD();
-            $sql="SELECT * FROM titulo WHERE alumnoid=".$_SESSION['id']."";
-            $resultado = $db->consulta($sql);
-            if(count($resultado)==0){
-                return true;
-            }else{
-                return false;
-            }
-        }
+        
         
     }
     

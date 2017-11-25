@@ -23,7 +23,7 @@
 					$this->conexion->close();
 			}
 			
-			public function consulta($sql) {
+			public function consultar($sql) {
 					$this->conectar();
 					$res = $this->conexion->query($sql);
 					$array_resultado = array();

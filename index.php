@@ -1,6 +1,10 @@
 <?php 
     include("vistas.php");
     include("Usuarios.php");
+    include("Titulos.php");
+    include("Habilidades.php");
+    include("Idiomas.php");
+    include("Otros.php");
     session_start();
 
     if(isset($_REQUEST["accion"]))
@@ -12,6 +16,8 @@
         case 'mostrarLogin':    
             Vistas::mostrar("login");
             break;
+        
+        // Para reconocer que tipo de usuario se loguea
         case 'comprobarLogin':
             $resultado= Usuarios::logueoAdmin($_REQUEST["user"], $_REQUEST["pass"]);
             if($resultado){
@@ -19,19 +25,17 @@
             }else{
 				$resultado= Usuarios::logueoUser($_REQUEST["user"], $_REQUEST["pass"]);
                 if($resultado){
-                    if(Usuarios::primerLogueo()){
-                        Vistas::mostrar("formularioCurriculum");
-                    }else{
-                        
-                    }
+                   	mainUsuario();
 				}else{
-					echo "nada por aqui";
+					echo "No existes en la bd";
 				}
             }
             break;
+        
         case 'registro':
             Vistas::mostrar("formularioRegistro");
             break;
+            
         case 'registroUsuario':
             if(Usuarios::comprobarUsuario()){
                 $datos["tipoMensaje"]="error";
@@ -50,10 +54,65 @@
                 Vistas::mostrar("login",$datos);
             }
                 
-            break;
+        break;
+            
+        case "insertarTitulo":
+            $resultado= Titulos::crearTitulo($_SESSION['id']);
+			if($resultado){
+				$msj = "Se ha insertado el título correctamente";
+            }else{
+                $msj = "se ha insertado el titulo incorrectamente";
+            }
+			mainUsuario($msj);
+        break;
+            
+        case "insertarHabilidad":
+            $resultado= Habilidades::crearHabilidad($_SESSION['id']);
+            if($resultado){
+				$msj = "Se ha insertado el habilidad correctamente";
+            }else{
+                $msj = "se ha insertado el habilidad incorrectamente";
+            }
+			mainUsuario($msj);
+        break;
+            
+        case "insertarIdioma":
+            $resultado= Idiomas::crearIdioma($_SESSION['id']);
+            if($resultado){
+				$msj = "Se ha insertado el idioma correctamente";
+            }else{
+                $msj = "se ha insertado el idioma incorrectamente";
+            }
+			mainUsuario($msj);
+        break;
+            
+        case "insertarOtros":
+            $resultado= Otros::modificarOtros($_SESSION['id']);
+            if($resultado){
+				$msj = "Otros modificado con exito";
+            }
+			mainUsuario($msj);
+        break;
+        
+            
+        default:
+            echo "Emosido engañao";
     }
     
 
+
+function mainUsuario($msj = null) {
+	$tabla["tablaTitulo"]= Titulos::getTitulo($_SESSION['id']);
+
+	$tabla["tablaHabilidad"] = Habilidades::getHabilidad($_SESSION['id']);
+
+	$tabla["mensaje"] = $msj;
+
+	$tabla["tablaIdioma"]=Idiomas::getIdioma($_SESSION['id']);
+    
+    $tabla["tablaOtro"] = Otros::getOtros($_SESSION['id']);
+	Vistas::mostrar("mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
+}
     
 
     
