@@ -3,7 +3,7 @@
 ?>
 
 <form  action="index.php">
-    Titulo: <input type="text" name="nombreti"> Centro<input type="text" name="centro"> Fecha fin:<input type="date" name="fechafin"> Tipo: <select name="tipo">
+    Titulo: <input type="text" name="nombreti" required> Centro<input type="text" name="centro" required> Fecha fin:<input type="date" name="fechafin" required> Tipo: <select name="tipo">
         <option>Grado universitario</option>
         <option>C.F.G.S.</option>
         <option>C.F.G.M.</option>
