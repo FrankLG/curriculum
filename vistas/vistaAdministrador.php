@@ -15,7 +15,7 @@
                 echo "<span>".$persona['correo']."</span>";
                 echo "<a href='index.php?accion=borrarUsuario&id=".$persona['alumnoid']."'>Declinar Registro</a>";
                 echo "<form action='index.php'>"
-                        . "<input type='number' name='validado' required='required' max='10'>"
+                        . "<input type='number' name='validado' required='required' min='0' max='10'>"
                         . "<input type='hidden' name='accion' value='aceptarUsuario'>"
                         . "<input type='hidden' name='id' value=".$persona['alumnoid'].">"
                         . "<input type='submit' value='validarUsuario'>"
@@ -23,6 +23,7 @@
                 echo "<br>";
             }
         }
+        
     }else{
         
         echo "<a href='index.php?accion=validarUsuarios'>Vista Validación</a>";
@@ -45,10 +46,6 @@
         
         
     }
-
-    
-    
-    
 
 ?>
 </div>

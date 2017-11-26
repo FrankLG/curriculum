@@ -61,8 +61,8 @@
         
         public static function getIdioma($id){
             $db = new BD();
-            $sql = "SELECT nombreid
-            FROM idioma INNER JOIN idiomaalumno ON         idioma.idiomaid=idiomaalumno.idiomaid
+            $sql = "SELECT nombreid, nombreni
+            FROM idioma INNER JOIN idiomaalumno ON         idioma.idiomaid=idiomaalumno.idiomaid INNER JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid
              WHERE alumnoid=  $id";
             
             $tabla= $db->consultar($sql);

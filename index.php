@@ -19,7 +19,6 @@
         
         // Para reconocer que tipo de usuario se loguea
         case 'comprobarLogin':
-            
             $resultado= Usuarios::logueoAdmin($_REQUEST["user"], $_REQUEST["pass"]);
             if($resultado){
                 $datos["tipo"]="normal";
@@ -34,13 +33,13 @@
 		}
             }
             break;
+            
         case 'modificarUsuario':
             if(isset($_REQUEST["id"])){
                 mainUsuarioAdmin($_REQUEST['id']);
             }
-            
-            
             break;
+            
         case 'registro':
             Vistas::mostrar("formularioRegistro");
             break;
@@ -52,10 +51,12 @@
                 Vistas::mostrar("formularioRegistro",$datos);
             }else{ 
                 $r = Usuarios::crearUsuario();
+                
                 $datos["tipoMensaje"]="correcto";
                 if ($r){
 				    $datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
 					$datos["tipoMensaje"]="correcto";
+                    
 					}else{
 						$datos["tipoMensaje"]="error";
 						$datos["mensaje"]="Error al crear usuario";
@@ -123,13 +124,14 @@
             $datos["tipo"]="validar";
             $datos["usuarios"]=Usuarios::usuariosSinValidar();
             Vistas::mostrar("vistaAdministrador",$datos);
+            
             break;
         case "aceptarUsuario":
-            
+            Otros::crearOtros($_REQUEST['id']);
             Usuarios::validarUsuario();
             $datos["tipo"]="validar";
             $datos["usuarios"]=Usuarios::usuariosSinValidar();
-            Vistas::mostrar("vistaAdministrador",$datos);
+            $idalumno= Vistas::mostrar("vistaAdministrador",$datos);
             
             break;
             

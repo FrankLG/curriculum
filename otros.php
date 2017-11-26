@@ -39,37 +39,37 @@
             // si estaba marcado inserta la tupla correspondiente, sino estaba marcada la borra
             
             if($conducir){
-                $sql = "INSERT INTO otrosalumno(alumnoid,otrosid) VALUES('$id', 1)";
+                $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=1";
             }else{
-                $sql = "DELETE FROM otrosalumno WHERE otrosid= '1'"; 
+                $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=1";
             }
             $db->ejecutar($sql);
             
             if($incorporacion){
-                $sql = "INSERT INTO otrosalumno(alumnoid,otrosid) VALUES('$id', 2)";
+                $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=2";
             }else{
-                $sql = "DELETE FROM otrosalumno WHERE otrosid= '2'"; 
+                $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=2"; 
             }
             $db->ejecutar($sql);
-           
+
             if($vehiculo){
-                $sql = "INSERT INTO otrosalumno(alumnoid,otrosid) VALUES('$id', 3)";
+                $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=3";
             }else{
-                $sql = "DELETE FROM otrosalumno WHERE otrosid= '3'"; 
+                $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=3";
             }
             $db->ejecutar($sql);
             
             if($flexibilidad){
-                $sql = "INSERT INTO otrosalumno(alumnoid,otrosid) VALUES('$id', 4)";
+                $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=4";
             }else{
-                $sql = "DELETE FROM otrosalumno WHERE otrosid= '4'"; 
+                $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=4"; 
             }
             $db->ejecutar($sql);
             
             if($geografica){
-                $sql = "INSERT INTO otrosalumno(alumnoid,otrosid) VALUES('$id', 5)";
+                $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=5";
             }else{
-                $sql = "DELETE FROM otrosalumno WHERE otrosid= '5'"; 
+                $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=5";
             }
             $db->ejecutar($sql);
             
@@ -79,12 +79,23 @@
         
         public static function getOtros($id){
             $db = new BD();
-            $sql = "SELECT otrosid
+            $sql = "SELECT otrosid, asignado
             FROM otrosalumno
             WHERE alumnoid= $id";
             $tabla= $db->consultar($sql);
 
             return $tabla;
         }
+        
+        public static function crearOtros($id){
+            $db = new BD();
+            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 1, 0)");
+            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 2, 0)");
+            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 3, 0)");
+            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 4, 0)");
+            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 5, 0)");
+            
+        }
+        
     }
 ?>

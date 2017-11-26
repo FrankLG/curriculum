@@ -37,7 +37,6 @@
 						else
 								$r =  false;
 					  return $r;
-            
         }    
         
         public static function logueoAdmin($dni, $contra){
