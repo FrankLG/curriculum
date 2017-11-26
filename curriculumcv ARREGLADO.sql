@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-11-2017 a las 16:29:25
+-- Tiempo de generación: 26-11-2017 a las 23:47:41
 -- Versión del servidor: 10.1.21-MariaDB
 -- Versión de PHP: 5.6.30
 
@@ -32,6 +32,17 @@ CREATE TABLE `admin` (
   `passad` varchar(30) COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`adminid`, `username`, `passad`) VALUES
+(1, 'alfredo', 'alfredo'),
+(2, 'felix', 'felix'),
+(3, 'pepe', 'pepe'),
+(4, 'miguel', 'miguel'),
+(5, 'fran', 'fran');
+
 -- --------------------------------------------------------
 
 --
@@ -50,7 +61,7 @@ CREATE TABLE `alumno` (
   `localidad` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `provincia` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `activo` tinyint(1) NOT NULL,
-  `puntuacion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `puntuacion` int(100) DEFAULT NULL,
   `passal` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   `validado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -156,7 +167,8 @@ INSERT INTO `otros` (`otrosid`, `nombreot`) VALUES
 
 CREATE TABLE `otrosalumno` (
   `alumnoid` int(11) NOT NULL,
-  `otrosid` int(11) NOT NULL
+  `otrosid` int(11) NOT NULL,
+  `asignado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -240,17 +252,17 @@ ALTER TABLE `titulo`
 -- AUTO_INCREMENT de la tabla `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `alumnoid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `alumnoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT de la tabla `habilidad`
 --
 ALTER TABLE `habilidad`
-  MODIFY `habilidadid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `habilidadid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT de la tabla `idioma`
 --
@@ -270,7 +282,7 @@ ALTER TABLE `otros`
 -- AUTO_INCREMENT de la tabla `titulo`
 --
 ALTER TABLE `titulo`
-  MODIFY `tituloid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `tituloid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
