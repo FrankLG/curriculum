@@ -32,7 +32,7 @@
 						while ($fila = $res->fetch_array()) {
 							$array_resultado[] = $fila;
 						}
-					}
+                                        }                                       
 					$this->desconectar();
 					return $array_resultado;
 			}
