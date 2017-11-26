@@ -24,5 +24,11 @@
             $tabla= $db->consultar($sql);
             return $tabla;
         }
+        
+        public static function borrarHabilidad($id, $habilidad){
+            $db = new BD();
+            $sql = "DELETE FROM habilidad WHERE alumnoid=$id AND habilidadid=$habilidad";
+            $db->ejecutar($sql);
+        }
     }
 ?>

@@ -17,7 +17,6 @@
             else
 				$r =  false;
             return $r;
-            
         }    
         
         public static function getTitulo($id){
@@ -25,6 +24,12 @@
             $sql = "SELECT * FROM titulo WHERE alumnoid= $id";
             $tabla= $db->consultar($sql);
             return $tabla;
+        }
+        
+         public static function borrarTitulo($id, $titulo){
+            $db = new BD();
+            $sql = "DELETE FROM titulo WHERE alumnoid=$id AND tituloid=$titulo";
+            $db->ejecutar($sql);
         }
     }
 ?>

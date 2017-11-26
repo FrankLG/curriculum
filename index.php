@@ -108,6 +108,24 @@
                 $datos["usuarios"]=Usuarios::usuariosParo();
                 Vistas::mostrar("vistaAdministrador",$datos);
         break;
+        case "borrarTitulo":
+            Titulos::borrarTitulo($_REQUEST["id"], $_REQUEST["titulo"]);
+            $msj="holi";
+            mainUsuario($msj);
+            break;
+            
+         case "borrarHabilidad":
+            Habilidades::borrarHabilidad($_REQUEST["id"], $_REQUEST["habilidad"]);
+            $msj="holi";
+            mainUsuario($msj);
+            break;
+
+         case "borrarIdioma":
+            Idiomas::borrarIdioma($_REQUEST["id"], $_REQUEST["idioma"]);
+            $msj="holi";
+            mainUsuario($msj);
+            break;
+            
         case "vistaAdmin":
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
@@ -161,7 +179,7 @@ function mainUsuarioAdmin($id) {
 
 	$tabla["tablaIdioma"]=Idiomas::getIdioma($id);
     
-        $tabla["tablaOtro"] = Otros::getOtros($id);
+    $tabla["tablaOtro"] = Otros::getOtros($id);
 	Vistas::mostrar("mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
 }
     

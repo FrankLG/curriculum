@@ -9,6 +9,7 @@
         echo "fecha fin :".$dato[3]."|||      ";
 		echo "Tipo:".$dato[4]." |||      ";
 		//echo "idalumno :".$dato[5]."       "; 
+        echo "<a href='index.php?accion=borrarTitulo&id=".$dato['alumnoid']."&titulo=".$dato['tituloid']."'>Borrar</a>";
         echo "<br>";
     }
 ?>
