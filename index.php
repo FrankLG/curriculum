@@ -13,8 +13,17 @@
         $accion="mostrarLogin";
 
     switch($accion){
-        case 'mostrarLogin':    
-            Vistas::mostrar("login");
+        case 'mostrarLogin': 
+            if($_SESSION['tipo']=="admin"){
+                $datos["tipo"]="normal";
+                $datos["usuarios"]=Usuarios::usuariosParo();
+                Vistas::mostrar("vistaAdministrador",$datos);
+            }else if(isset ($_SESSION["id"])){
+                mainUsuario();
+            }else{
+                Vistas::mostrar("login");    
+            }
+            
             break;
         
         // Para reconocer que tipo de usuario se loguea
@@ -57,11 +66,10 @@
                 Vistas::mostrar("formularioRegistro",$datos);
             }else{ 
                 $r = Usuarios::crearUsuario();
-                
-                $datos["tipoMensaje"]="correcto";
                 if ($r){
 			$datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
 			$datos["tipoMensaje"]="correcto";
+                        mail("franlg.alm@gmail.com","Nuevo registro", "Un usuario acaba de registrarse en la plataforma, deberias echar un vistazo");
                     }else{
 			$datos["tipoMensaje"]="error";
 			$datos["mensaje"]="Error al crear usuario";
@@ -128,6 +136,7 @@
                 if($_SESSION['tipo']=="admin"){
                     Usuarios::borrarUsuario();
                     $datos["usuarios"]=Usuarios::usuariosParo();
+                    $datos["tipo"]="normal";
                     Vistas::mostrar("vistaAdministrador",$datos);
                 }else{
                     echo "No tiene permisos para realizar esta acción.";

@@ -14,10 +14,13 @@
     
     if($info["activo"]==0){
         echo "Si <input type='radio' name='activo' value='1'>"
-        . "No <input type='radio' name='activo' value='0' checked>";
+        . "No <input type='radio' name='activo' value='0' checked><br>";
     }else{
         echo "Si <input type='radio' name='activo' value='1' checked>"
-        . "No <input type='radio' name='activo' value='0'>";
+        . "No <input type='radio' name='activo' value='0'><br>";
+    }
+    if(isset($_SESSION["tipo"])){
+        echo "Puntuacion: <input type='number' name='puntuacion' value='".$info['puntuacion']."' min='0' max='10'>";
     }
     echo "<input type='hidden' name='accion' value='cambiarInfo'>"
         . "<input type='hidden' name='id' value='".$info['alumnoid']."'>"

@@ -102,7 +102,10 @@
         public static function validarUsuario(){
             $db = new BD();
             $id=$_REQUEST["id"];
+            $puntuacion = $_REQUEST["puntuacion"];
             $sql = "UPDATE alumno SET validado='1' where alumnoid='$id'";
+            $db->ejecutar($sql);
+            $sql = "UPDATE alumno SET puntuacion='$puntuacion' WHERE alumnoid='$id'";
             $db->ejecutar($sql);
         }
 
@@ -125,19 +128,8 @@
             
             $db = new BD();
             $busqueda=$_REQUEST["buscar"];//nombreal,apellido,alumnoid,correo,telefono
-            /*
-			$sql="SELECT * FROM alumno INNER JOIN habilidad ON alumno.alumnoid=habilidad.alumnoid INNER JOIN idiomaalumno ON alumno.alumnoid=idiomaalumno.alumnoid INNER JOIN idioma ON idiomaalumno.idiomaid=idioma.idiomaid INNER JOIN otrosalumno ON alumno.alumnoid=otrosalumno.alumnoid INNER JOIN otros ON otrosalumno.otrosid=otros.otrosid INNER JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid where provincia LIKE '%$busqueda%' OR localidad LIKE '%$busqueda%' OR nombreal LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR nombreha LIKE '%$busqueda%' OR nombreid LIKE '%$busqueda%' OR nombreni LIKE '$busqueda'  ";
-			*/
-			$sql="SELECT DISTINCT alumno.alumnoid, alumno.nombreal, alumno.apellido FROM alumno, habilidad, idiomaalumno, idioma, nivel
-			WHERE alumno.alumnoid=habilidad.alumnoid
-			AND alumno.alumnoid=idiomaalumno.alumnoid
-			AND idiomaalumno.idiomaid=idioma.idiomaid
-			AND idiomaalumno.nivelid=nivel.nivelid";
-			
-			
-			/*INNER JOIN habilidad ON alumno.alumnoid=habilidad.alumnoid INNER JOIN idiomaalumno ON alumno.alumnoid=idiomaalumno.alumnoid INNER JOIN idioma ON idiomaalumno.idiomaid=idioma.idiomaid INNER JOIN otrosalumno ON alumno.alumnoid=otrosalumno.alumnoid INNER JOIN otros ON otrosalumno.otrosid=otros.otrosid INNER JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid where provincia LIKE '%$busqueda%' OR localidad LIKE '%$busqueda%' OR nombreal LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR nombreha LIKE '%$busqueda%' OR nombreid LIKE '%$busqueda%' OR nombreni LIKE '$busqueda'  ";
-			*/
-			echo $sql;
+            
+            $sql = "SELECT ";
             $tabla=$db->consultar($sql);                    
             return $tabla;
         }
@@ -160,7 +152,8 @@
                     . "localidad='".$_REQUEST['localidad']."',"
                     . "provincia='".$_REQUEST['provincia']."',"
                     . "dni='".$_REQUEST['dni']."',"
-                    . "activo='".$_REQUEST['activo']."' "
+                    . "activo='".$_REQUEST['activo']."', "
+                    . "puntuacion='".$_REQUEST['puntuacion']."'"
                     . "WHERE alumnoid='".$_REQUEST['id']."'";
             
             $db->ejecutar($sql);

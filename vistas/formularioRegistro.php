@@ -24,3 +24,4 @@
     <input type="hidden" name="accion" value="registroUsuario">
     <input type="submit" value="Completar registro">
 </form>
+<a href="index.php?accion=mostrarLogin">Volver</a>

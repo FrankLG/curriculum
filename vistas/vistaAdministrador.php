@@ -3,7 +3,7 @@
     
     
 <?php 
-    $usuarios=$datos["usuarios"];var_dump($usuarios);
+    $usuarios=$datos["usuarios"];
     if($datos["tipo"]=="validar"){
         echo "<a href='index.php?accion=vistaAdmin'>Vista administrador</a>";
         
@@ -15,7 +15,7 @@
                 echo "<span>".$persona['correo']."</span>";
                 echo "<a href='index.php?accion=borrarUsuario&id=".$persona['alumnoid']."'>Declinar Registro</a>";
                 echo "<form action='index.php'>"
-                        . "<input type='number' name='validado' required='required' min='0' max='10'>"
+                        . "<input type='number' name='puntuacion' required='required' min='0' max='10'>"
                         . "<input type='hidden' name='accion' value='aceptarUsuario'>"
                         . "<input type='hidden' name='id' value=".$persona['alumnoid'].">"
                         . "<input type='submit' value='validarUsuario'>"
@@ -34,9 +34,10 @@
         foreach($usuarios as $personas){  
             foreach($personas as $persona){
                 echo "<div class='usuario'><div style='width:120px; height:150px; display:inline-block; border: 1px solid black;'>Foto</div>";
-                echo "<div class='info'><a href='index.php?accion=modificarUsuario&id=".$persona['alumnoid']."'>".$persona['nombreal']."&nbsp;".$persona['apellido']."</a>";
+                echo "<div class='info'><span>".$persona['nombreal']."&nbsp;".$persona['apellido']."</span>";
                 echo "<span>".$persona['telefono']."</span>";
                 echo "<span>".$persona['correo']."</span>";
+                echo "<span>Puntuacion: ".$persona['puntuacion']."</span>";
                 echo "<a href='index.php?accion=borrarUsuario&id=".$persona['alumnoid']."'>Borrar usuario</a>";
                 echo "<a href='index.php?accion=modificarUsuario&id=".$persona['alumnoid']."'>modificar usuario</a>";
                 echo "<br>";
