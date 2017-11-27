@@ -17,6 +17,5 @@
     }
         echo "<form action='index.php'>"
             . "<input type='hidden' name='accion' value='modificarInfoPersonal'>"
-            . "<input type='hidden' name='id' value='".$info['alumnoid']."'>"
             . "<input type='submit' value='Modificar Información'>"
             . "</form>";

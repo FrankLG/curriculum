@@ -45,8 +45,9 @@
             $sql= "SELECT * FROM admin WHERE username='$dni' AND passad='$contra'";
             //echo $sql;
             $resultado = $db->consultar($sql);
-            
+           
             if(count($resultado) > 0){
+                $_SESSION['tipo']="admin";
                 return true;
             }else{
                 return false;

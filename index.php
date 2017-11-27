@@ -29,15 +29,21 @@
                 if($resultado){
                    	mainUsuario();
 		}else{
-                    echo "El usuario no existe o aun no ha sido aceptado por los administradores";
+                    $datos["tipoMensaje"]="error";
+                    $datos["mensaje"]="El usuario no existe o esta a la espera de que un admin lo apruebe";
+                    Vistas::mostrar("login",$datos);
 		}
             }
             break;
             
         case 'modificarUsuario':
-            if(isset($_REQUEST["id"])){
-                mainUsuarioAdmin($_REQUEST['id']);
+            if($_SESSION['tipo']=="admin"){
+                $_SESSION['id']=$_REQUEST['id'];
+                mainUsuarioAdmin($_SESSION['id']);
+            }else{
+                echo "No tienes permisos para entrar aqui";
             }
+            
             break;
             
         case 'registro':
@@ -54,114 +60,172 @@
                 
                 $datos["tipoMensaje"]="correcto";
                 if ($r){
-				    $datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
-					$datos["tipoMensaje"]="correcto";
-                    
-					}else{
-						$datos["tipoMensaje"]="error";
-						$datos["mensaje"]="Error al crear usuario";
-					}				
+			$datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
+			$datos["tipoMensaje"]="correcto";
+                    }else{
+			$datos["tipoMensaje"]="error";
+			$datos["mensaje"]="Error al crear usuario";
+			}				
                 Vistas::mostrar("login",$datos);
             }
                 
         break;
             
         case "insertarTitulo":
-            $resultado= Titulos::crearTitulo($_SESSION['id']);
-			if($resultado){
-				$msj = "Se ha insertado el título correctamente";
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+                $resultado= Titulos::crearTitulo($_SESSION['id']);
+                            if($resultado){
+                                    $msj = "Se ha insertado el título correctamente";
+                }else{
+                    $msj = "se ha insertado el titulo incorrectamente";
+                }
+                            mainUsuario($msj);
             }else{
-                $msj = "se ha insertado el titulo incorrectamente";
+                echo "No tiene permisos para acceder a esta zona.";
             }
-			mainUsuario($msj);
         break;
             
         case "insertarHabilidad":
-            $resultado= Habilidades::crearHabilidad($_SESSION['id']);
-            if($resultado){
-				$msj = "Se ha insertado el habilidad correctamente";
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+                $resultado= Habilidades::crearHabilidad($_SESSION['id']);
+                if($resultado){
+                    $msj = "Se ha insertado el habilidad correctamente";
+                }else{
+                    $msj = "se ha insertado el habilidad incorrectamente";
+                }
+                    mainUsuario($msj);
             }else{
-                $msj = "se ha insertado el habilidad incorrectamente";
-            }
-			mainUsuario($msj);
+                 echo "No tiene permisos para acceder a esta zona.";
+             }
         break;
             
         case "insertarIdioma":
-            $resultado= Idiomas::crearIdioma($_SESSION['id']);
-            if($resultado){
-				$msj = "Se ha insertado el idioma correctamente";
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+                $resultado= Idiomas::crearIdioma($_SESSION['id']);
+                if($resultado){
+                    $msj = "Se ha insertado el idioma correctamente";
+                }else{
+                    $msj = "se ha insertado el idioma incorrectamente";
+                }
+                mainUsuario($msj);
             }else{
-                $msj = "se ha insertado el idioma incorrectamente";
+                echo "No tiene permisos para acceder a esta zona.";
             }
-			mainUsuario($msj);
         break;
             
         case "insertarOtros":
-            $resultado= Otros::modificarOtros($_SESSION['id']);
-            if($resultado){
-				$msj = "Otros modificado con exito";
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+                $resultado= Otros::modificarOtros($_SESSION['id']);
+                if($resultado){
+                    $msj = "Otros modificado con exito";
+                }
+                    mainUsuario($msj);
+            }else{
+                echo "No tiene permisos para acceder a esta zona.";
             }
-			mainUsuario($msj);
         break;
         case "borrarUsuario":
-                Usuarios::borrarUsuario();
-                $datos["usuarios"]=Usuarios::usuariosParo();
-                Vistas::mostrar("vistaAdministrador",$datos);
+                if($_SESSION['tipo']=="admin"){
+                    Usuarios::borrarUsuario();
+                    $datos["usuarios"]=Usuarios::usuariosParo();
+                    Vistas::mostrar("vistaAdministrador",$datos);
+                }else{
+                    echo "No tiene permisos para realizar esta acción.";
+                }
+                
         break;
         case "borrarTitulo":
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
             Titulos::borrarTitulo($_REQUEST["id"], $_REQUEST["titulo"]);
             $msj="holi";
             mainUsuario($msj);
+            }else{
+                 echo "No tiene permisos para acceder a esta zona.";
+             }
             break;
             
          case "borrarHabilidad":
+             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
             Habilidades::borrarHabilidad($_REQUEST["id"], $_REQUEST["habilidad"]);
             $msj="holi";
             mainUsuario($msj);
+            }else{
+                 echo "No tiene permisos para acceder a esta zona.";
+             }
             break;
 
          case "borrarIdioma":
+             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
             Idiomas::borrarIdioma($_REQUEST["id"], $_REQUEST["idioma"]);
             $msj="holi";
             mainUsuario($msj);
+             }else{
+                 echo "No tiene permisos para acceder a esta zona.";
+             }
             break;
             
         case "vistaAdmin":
+            if($_SESSION['tipo']=="admin"){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
                 Vistas::mostrar("vistaAdministrador",$datos);
+            }else{
+                echo "No tiene permisos para acceder a esta zona.";
+            }
+                
             break;
     
         case "busqueda":
-            
-            $datos["usuarios"]=Usuarios::busqueda();
-			$datos["tipo"]="normal";
-            Vistas::mostrar("vistaAdministrador", $datos);
-            
+            if($_SESSION['tipo']=="admin"){
+                $datos["usuarios"]=Usuarios::busqueda();
+                $datos["tipo"]="normal";
+                Vistas::mostrar("vistaAdministrador", $datos);
+            }else{
+                echo "No tiene permisos para realizar esta acción";
+            }
             break;
         case "validarUsuarios":
-            $datos["tipo"]="validar";
-            $datos["usuarios"]=Usuarios::usuariosSinValidar();
-            Vistas::mostrar("vistaAdministrador",$datos);
-            
+            if($_SESSION['tipo']=="admin"){
+                $datos["tipo"]="validar";
+                $datos["usuarios"]=Usuarios::usuariosSinValidar();
+                Vistas::mostrar("vistaAdministrador",$datos);
+            }else{
+                echo "No tienes permisos para realizar esta acción";
+            }
             break;
         case "aceptarUsuario":
-            Otros::crearOtros($_REQUEST['id']);
-            Usuarios::validarUsuario();
-            $datos["tipo"]="validar";
-            $datos["usuarios"]=Usuarios::usuariosSinValidar();
-            $idalumno= Vistas::mostrar("vistaAdministrador",$datos);
-            
+            if($_SESSION['tipo']=="admin"){
+                Otros::crearOtros($_REQUEST['id']);
+                Usuarios::validarUsuario();
+                $datos["tipo"]="validar";
+                $datos["usuarios"]=Usuarios::usuariosSinValidar();
+                $idalumno= Vistas::mostrar("vistaAdministrador",$datos);
+            }else{
+                echo "No tienes permisos para realizar esta accion";
+            }
             break;
-		case "modificarInfoPersonal":
-            $tabla=Usuarios::infoUsuario($_REQUEST["id"]);
-            Vistas::mostrar("modificarInfoPersonal", $tabla);
-			
+        case "modificarInfoPersonal":
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+                $tabla=Usuarios::infoUsuario($_SESSION['id']);
+                Vistas::mostrar("modificarInfoPersonal", $tabla);
+            }else{
+                echo "No tienes permiso o no estas logueado";
+            }
             break;
         case "cambiarInfo":
-            Usuarios::modificarInfoUsuario();
-            mainUsuario();
-              
+            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+                Usuarios::modificarInfoUsuario();
+                mainUsuario();
+            }else{
+                echo "No tienes permiso o no estas logueado.";
+            }
+            break;
+        case "desconectar":
+            
+                $_SESSION["tipo"]=NULL;
+                $_SESSION["id"]=NULL;
+                Vistas::mostrar("login");
+            
             break;
         default:
             echo "Error 404, La página solicitada no ha sido encontrada.";
