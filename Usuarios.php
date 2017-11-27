@@ -123,10 +123,46 @@
         public static function busqueda(){
             
             $db = new BD();
-            $busqueda=$_REQUEST["buscar"];
-            $sql="SELECT * FROM alumno JOIN habilidad ON alumno.alumnoid=habilidad.alumnoid JOIN idiomaalumno ON alumno.alumnoid=idiomaalumno.alumnoid JOIN idioma ON idiomaalumno.idiomaid=idioma.idiomaid JOIN otrosalumno ON alumno.alumnoid=otrosalumno.alumnoid JOIN otros ON otrosalumno.otrosid=otros.otrosid JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid where provincia LIKE '%$busqueda%' OR localidad LIKE '%$busqueda%' OR nombreal LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR nombreha LIKE '%$busqueda%' OR nombreid LIKE '%$busqueda%' OR nombreni LIKE '$busqueda'  ";
+            $busqueda=$_REQUEST["buscar"];//nombreal,apellido,alumnoid,correo,telefono
+            /*
+			$sql="SELECT * FROM alumno INNER JOIN habilidad ON alumno.alumnoid=habilidad.alumnoid INNER JOIN idiomaalumno ON alumno.alumnoid=idiomaalumno.alumnoid INNER JOIN idioma ON idiomaalumno.idiomaid=idioma.idiomaid INNER JOIN otrosalumno ON alumno.alumnoid=otrosalumno.alumnoid INNER JOIN otros ON otrosalumno.otrosid=otros.otrosid INNER JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid where provincia LIKE '%$busqueda%' OR localidad LIKE '%$busqueda%' OR nombreal LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR nombreha LIKE '%$busqueda%' OR nombreid LIKE '%$busqueda%' OR nombreni LIKE '$busqueda'  ";
+			*/
+			$sql="SELECT DISTINCT alumno.alumnoid, alumno.nombreal, alumno.apellido FROM alumno, habilidad, idiomaalumno, idioma, nivel
+			WHERE alumno.alumnoid=habilidad.alumnoid
+			AND alumno.alumnoid=idiomaalumno.alumnoid
+			AND idiomaalumno.idiomaid=idioma.idiomaid
+			AND idiomaalumno.nivelid=nivel.nivelid";
+			
+			
+			/*INNER JOIN habilidad ON alumno.alumnoid=habilidad.alumnoid INNER JOIN idiomaalumno ON alumno.alumnoid=idiomaalumno.alumnoid INNER JOIN idioma ON idiomaalumno.idiomaid=idioma.idiomaid INNER JOIN otrosalumno ON alumno.alumnoid=otrosalumno.alumnoid INNER JOIN otros ON otrosalumno.otrosid=otros.otrosid INNER JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid where provincia LIKE '%$busqueda%' OR localidad LIKE '%$busqueda%' OR nombreal LIKE '%$busqueda%' OR apellido LIKE '%$busqueda%' OR nombreha LIKE '%$busqueda%' OR nombreid LIKE '%$busqueda%' OR nombreni LIKE '$busqueda'  ";
+			*/
+			echo $sql;
             $tabla=$db->consultar($sql);                    
             return $tabla;
+        }
+		public static function infoUsuario($id){
+            $db = new BD();
+            
+            $sql = "SELECT * FROM alumno WHERE alumnoid='$id'";
+            
+            $resultado = $db->consultar($sql);
+            
+            return $resultado;
+        }
+        public static function modificarInfoUsuario(){
+            $db = new BD();
+            $sql = "UPDATE alumno SET nombreal='".$_REQUEST['nombreal']."',"
+                    . "apellido='".$_REQUEST['apellido']."',"
+                    . "telefono='".$_REQUEST['telefono']."',"
+                    . "correo='".$_REQUEST['correo']."',"
+                    . "direccion='".$_REQUEST['direccion']."',"
+                    . "localidad='".$_REQUEST['localidad']."',"
+                    . "provincia='".$_REQUEST['provincia']."',"
+                    . "dni='".$_REQUEST['dni']."',"
+                    . "activo='".$_REQUEST['activo']."' "
+                    . "WHERE alumnoid='".$_REQUEST['id']."'";
+            
+            $db->ejecutar($sql);
         }
         
         

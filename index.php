@@ -135,6 +135,7 @@
         case "busqueda":
             
             $datos["usuarios"]=Usuarios::busqueda();
+			$datos["tipo"]="normal";
             Vistas::mostrar("vistaAdministrador", $datos);
             
             break;
@@ -152,7 +153,16 @@
             $idalumno= Vistas::mostrar("vistaAdministrador",$datos);
             
             break;
-            
+		case "modificarInfoPersonal":
+            $tabla=Usuarios::infoUsuario($_REQUEST["id"]);
+            Vistas::mostrar("modificarInfoPersonal", $tabla);
+			
+            break;
+        case "cambiarInfo":
+            Usuarios::modificarInfoUsuario();
+            mainUsuario();
+              
+            break;
         default:
             echo "Error 404, La página solicitada no ha sido encontrada.";
     }
@@ -160,27 +170,22 @@
 
 
 function mainUsuario($msj = null) {
-	$tabla["tablaTitulo"]= Titulos::getTitulo($_SESSION['id']);
-
-	$tabla["tablaHabilidad"] = Habilidades::getHabilidad($_SESSION['id']);
-
-	$tabla["mensaje"] = $msj;
-
-	$tabla["tablaIdioma"]=Idiomas::getIdioma($_SESSION['id']);
-    
-    $tabla["tablaOtro"] = Otros::getOtros($_SESSION['id']);
-	Vistas::mostrar("mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
+        $tabla["tablaInfo"]=Usuarios::infoUsuario($_SESSION["id"]);
+		$tabla["tablaTitulo"]= Titulos::getTitulo($_SESSION['id']);
+		$tabla["tablaHabilidad"] = Habilidades::getHabilidad($_SESSION['id']);
+		$tabla["mensaje"] = $msj;
+		$tabla["tablaIdioma"]=Idiomas::getIdioma($_SESSION['id']);
+        $tabla["tablaOtro"] = Otros::getOtros($_SESSION['id']);
+	Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
 }
 
 function mainUsuarioAdmin($id) {
-	$tabla["tablaTitulo"]= Titulos::getTitulo($id);
-
-	$tabla["tablaHabilidad"] = Habilidades::getHabilidad($id);
-
-	$tabla["tablaIdioma"]=Idiomas::getIdioma($id);
-    
-    $tabla["tablaOtro"] = Otros::getOtros($id);
-	Vistas::mostrar("mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
+        $tabla["tablaInfo"]=Usuarios::infoUsuario($id);
+		$tabla["tablaTitulo"]= Titulos::getTitulo($id);
+		$tabla["tablaHabilidad"] = Habilidades::getHabilidad($id);
+		$tabla["tablaIdioma"]=Idiomas::getIdioma($id);
+        $tabla["tablaOtro"] = Otros::getOtros($id);
+		Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
 }
     
 

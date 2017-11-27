@@ -3,11 +3,11 @@
     
     
 <?php 
-    $usuarios=$datos["usuarios"];
+    $usuarios=$datos["usuarios"];var_dump($usuarios);
     if($datos["tipo"]=="validar"){
         echo "<a href='index.php?accion=vistaAdmin'>Vista administrador</a>";
         
-        foreach($usuarios as $personas){  
+        foreach($usuarios as $personas){
             foreach($personas as $persona){
                 echo "<div class='usuario'><div style='width:120px; height:150px; display:inline-block; border: 1px solid black;'>Foto</div>";
                 echo "<div class='info'><a href='index.php?accion=modificarUsuario&id=".$persona['alumnoid']."'>".$persona['nombreal']."&nbsp;".$persona['apellido']."</a>";
