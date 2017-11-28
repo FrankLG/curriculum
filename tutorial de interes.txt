@@ -1,0 +1,3 @@
+http://evilnapsis.com/2017/02/24/enviar-emails-con-la-libreria-phpmailer-y-configurar-gmail/
+
+https://manuais.iessanclemente.net/index.php/Almacenamiento_de_imágenes_en_bases_de_datos_con_PHP
