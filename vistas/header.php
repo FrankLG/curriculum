@@ -2,13 +2,11 @@
 	<head>
 		<meta charset="utf8">
 		<title>Practica php</title>
+		<link rel="stylesheet" type="text/css" href="vistas/css/css.css">
 	</head>
 	<body>
-        <h1>CV CV</h1>
-        <?php 
-            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+        <?php
+            if(isset($_SESSION['tipo']) || isset($_SESSION['id'])){
                 echo "<a href='index.php?accion=desconectar'>Desconectar</a>";
-            }
-            
+			}
         ?>
-        

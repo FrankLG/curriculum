@@ -1,19 +1,31 @@
-<?php 
+<?php
     if(isset($datos["mensaje"])){
         if($datos["tipoMensaje"]=="error"){
-            echo "<h1 style='color:red;'>".$datos['mensaje']."</h1>";    
+            echo "<h1 style='color:red;'>".$datos['mensaje']."</h1>";
         }else{
             echo "<h1 style='color:green;'>".$datos['mensaje']."</h1>";
         }
-        
+
     }
 ?>
 
-<form  action="index.php">
-    <h1>Logueo de usuario</h1><br>
-    DNI <input type="text" maxlength="9" name="user" required><br>
-    contraseña <input type="text" name="pass" required><br>
-    <input type="hidden" name="accion" value="comprobarLogin">
-    <input type="submit" value="loguearse">
-</form>
-<a href="index.php?accion=registro">Quiero darme de alta</a>
+<div id="divLogin">
+  <div id="divImagenLogin"></div>
+  <form  action="index.php">
+    <table id="tablaLogin">
+      <tr>
+        <td><span>Usuario:</span></td>
+        <td><input type="text" maxlength="9" name="user" required></td>
+      </tr>
+      <input type="hidden" name="accion" value="comprobarLogin">
+      <tr>
+        <td><span>Contraseña: </span></td>
+        <td><input type="text" name="pass" required></td>
+      </tr>
+      <tr>
+          <td id="tdAlta"><input class="botonSubmit" type="submit" value="Entrar"></td>
+          <td id="tdAlta"><a class="enlaces" href="index.php?accion=registro"><span>Darse de alta</span></a></td>
+      </tr>
+
+  </form>
+</div>

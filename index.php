@@ -1,4 +1,4 @@
-<?php 
+<?php
     include("vistas.php");
     include("Usuarios.php");
     include("Titulos.php");
@@ -13,19 +13,19 @@
         $accion="mostrarLogin";
 
     switch($accion){
-        case 'mostrarLogin': 
-            if($_SESSION['tipo']=="admin"){
+        case 'mostrarLogin':
+            if(isset($_SESSION['tipo'])){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
                 Vistas::mostrar("vistaAdministrador",$datos);
             }else if(isset ($_SESSION["id"])){
                 mainUsuario();
             }else{
-                Vistas::mostrar("login");    
+                Vistas::mostrar("login");
             }
-            
+
             break;
-        
+
         // Para reconocer que tipo de usuario se loguea
         case 'comprobarLogin':
             $resultado= Usuarios::logueoAdmin($_REQUEST["user"], $_REQUEST["pass"]);
@@ -44,7 +44,7 @@
 		}
             }
             break;
-            
+
         case 'modificarUsuario':
             if($_SESSION['tipo']=="admin"){
                 $_SESSION['id']=$_REQUEST['id'];
@@ -52,19 +52,19 @@
             }else{
                 echo "No tienes permisos para entrar aqui";
             }
-            
+
             break;
-            
+
         case 'registro':
             Vistas::mostrar("formularioRegistro");
             break;
-            
+
         case 'registroUsuario':
             if(Usuarios::comprobarUsuario()){
                 $datos["tipoMensaje"]="error";
                 $datos["mensaje"]="El usuario ya existe o esta a la espera de que un admin lo apruebe";
                 Vistas::mostrar("formularioRegistro",$datos);
-            }else{ 
+            }else{
                 $r = Usuarios::crearUsuario();
                 if ($r){
 			$datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
@@ -73,12 +73,12 @@
                     }else{
 			$datos["tipoMensaje"]="error";
 			$datos["mensaje"]="Error al crear usuario";
-			}				
+			}
                 Vistas::mostrar("login",$datos);
             }
-                
+
         break;
-            
+
         case "insertarTitulo":
             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
                 $resultado= Titulos::crearTitulo($_SESSION['id']);
@@ -92,7 +92,7 @@
                 echo "No tiene permisos para acceder a esta zona.";
             }
         break;
-            
+
         case "insertarHabilidad":
             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
                 $resultado= Habilidades::crearHabilidad($_SESSION['id']);
@@ -106,7 +106,7 @@
                  echo "No tiene permisos para acceder a esta zona.";
              }
         break;
-            
+
         case "insertarIdioma":
             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
                 $resultado= Idiomas::crearIdioma($_SESSION['id']);
@@ -120,7 +120,7 @@
                 echo "No tiene permisos para acceder a esta zona.";
             }
         break;
-            
+
         case "insertarOtros":
             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
                 $resultado= Otros::modificarOtros($_SESSION['id']);
@@ -141,7 +141,7 @@
                 }else{
                     echo "No tiene permisos para realizar esta acción.";
                 }
-                
+
         break;
         case "borrarTitulo":
             if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
@@ -152,7 +152,7 @@
                  echo "No tiene permisos para acceder a esta zona.";
              }
             break;
-            
+
          case "borrarHabilidad":
              if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
             Habilidades::borrarHabilidad($_REQUEST["id"], $_REQUEST["habilidad"]);
@@ -172,7 +172,7 @@
                  echo "No tiene permisos para acceder a esta zona.";
              }
             break;
-            
+
         case "vistaAdmin":
             if($_SESSION['tipo']=="admin"){
                 $datos["tipo"]="normal";
@@ -181,9 +181,9 @@
             }else{
                 echo "No tiene permisos para acceder a esta zona.";
             }
-                
+
             break;
-    
+
         case "busqueda":
             if($_SESSION['tipo']=="admin"){
                 $datos["usuarios"]=Usuarios::busqueda();
@@ -214,7 +214,7 @@
             }
             break;
         case "modificarInfoPersonal":
-            if($_SESSION['tipo']=="admin" || isset($_SESSION['id'])){
+            if(isset($_SESSION['tipo']) || isset($_SESSION['id'])){
                 $tabla=Usuarios::infoUsuario($_SESSION['id']);
                 Vistas::mostrar("modificarInfoPersonal", $tabla);
             }else{
@@ -230,16 +230,16 @@
             }
             break;
         case "desconectar":
-            
+
                 $_SESSION["tipo"]=NULL;
                 $_SESSION["id"]=NULL;
                 Vistas::mostrar("login");
-            
+
             break;
         default:
             echo "Error 404, La página solicitada no ha sido encontrada.";
     }
-    
+
 
 
 function mainUsuario($msj = null) {
@@ -249,7 +249,7 @@ function mainUsuario($msj = null) {
 		$tabla["mensaje"] = $msj;
 		$tabla["tablaIdioma"]=Idiomas::getIdioma($_SESSION['id']);
         $tabla["tablaOtro"] = Otros::getOtros($_SESSION['id']);
-	Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
+	Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);
 }
 
 function mainUsuarioAdmin($id) {
@@ -258,9 +258,9 @@ function mainUsuarioAdmin($id) {
 		$tabla["tablaHabilidad"] = Habilidades::getHabilidad($id);
 		$tabla["tablaIdioma"]=Idiomas::getIdioma($id);
         $tabla["tablaOtro"] = Otros::getOtros($id);
-		Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);	
+		Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);
 }
-    
 
-    
+
+
 ?>
