@@ -58,7 +58,7 @@
 	public static function logueoUser($dni, $contra){
             $db= new BD();
             // primero comprobamos que si es un administrador
-            $sql= "SELECT * FROM alumno WHERE dni='$dni' AND passal='$contra'";
+            $sql= "SELECT * FROM alumno WHERE dni='$dni' AND passal='$contra' ";
             //echo $sql;
             $resultado = $db->consultar($sql);
 
@@ -72,11 +72,11 @@
 
                 }else{
                     $sql = "SELECT alumnoid FROM alumno WHERE dni='$dni' ";
-                $resultado = $db->consultar($sql);
+                    $resultado = $db->consultar($sql);
 
-                $resultado = $resultado["0"];
-                $_SESSION['id']=$resultado["0"];
-                return true;
+                    $resultado = $resultado["0"];
+                    $_SESSION['id']=$resultado["0"];
+                    return true;
                 }
 
             }else{
@@ -159,7 +159,6 @@
         }
         public static function modificarInfoUsuario(){
             $db = new BD();
-
 			if(isset($_REQUEST["puntuacion"])){
 				$sql = "UPDATE alumno SET nombreal='".$_REQUEST['nombreal']."',"
                     . "apellido='".$_REQUEST['apellido']."',"
@@ -184,10 +183,38 @@
                     . "activo='".$_REQUEST['activo']."'"
                     . "WHERE alumnoid='".$_REQUEST['id']."'";
 			}
-
-
             $db->ejecutar($sql);
         }
-
-
+        
+       
+        public static function insertarImagen(){
+            //var_dump($_FILES['imagen']);
+            //$documento = $_FILES['imagen'];
+            
+            echo $_SESSION['id'];
+            
+            $nombre_imagen=$_FILES['imagen']['name'];
+            $tipo_imagen=$_FILES['imagen']['type'];
+            $tamano_imagen=$_FILES['imagen']['size'];
+            
+            if (($nombre_imagen == !NULL) && ($_FILES['imagen']['size'] <= 1500000)){
+                if (($_FILES["imagen"]["type"] == "image/jpeg")
+               || ($_FILES["imagen"]["type"] == "image/jpg"))
+               {
+            $carpeta_destino=$_SERVER['DOCUMENT_ROOT'].'/curriculum-master/imagenes/';
+   
+            move_uploaded_file($_FILES['imagen']['tmp_name'],$carpeta_destino.$_SESSION['id'].".jpg");
+                    
+              }else{
+                   //si no cumple con el formato
+                   echo "Solo puedes imagenes con formato jpg";
+                }
+            }else{
+               //si existe la variable pero se pasa del tamaño permitido
+               if($nombre_imagen == !NULL) 
+                   echo "La imagen es demasiado grande"; 
+            }       
+           
+        } 
+        
     }

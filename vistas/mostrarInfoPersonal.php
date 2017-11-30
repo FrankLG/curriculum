@@ -22,3 +22,8 @@
             . "<input type='hidden' name='accion' value='modificarInfoPersonal'>"
             . "<input type='submit' value='Modificar Información'>"
             . "</form>";
+
+        echo "<form action='index.php'>"
+                . "<input type='hidden' name='accion' value='seleccionarImagen'>"
+                . "<input type='submit' value='Añadir o cambiar imagen'>"
+            . "</form>";

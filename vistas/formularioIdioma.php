@@ -2,7 +2,7 @@
     
 ?>
 
-<form  action="index.php">
+<form  action="index.php" method="post" >
    <select name="nombreid">
             <option value="ingles">Inglés</option> 
             <option value="frances">Francés</option> 

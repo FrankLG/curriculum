@@ -76,7 +76,14 @@
 			}
                 Vistas::mostrar("login",$datos);
             }
-
+        break;
+            
+        case "seleccionarImagen":
+            Vistas::mostrar("formularioImagen");
+        break;
+            
+        case "insertarImagen":
+            Usuarios::insertarImagen();
         break;
 
         case "insertarTitulo":

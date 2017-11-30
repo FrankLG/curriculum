@@ -8,7 +8,7 @@
     ?>
   </div>
   <div id="divRegistroInterior">
-    <form id="formularioRegistro"  action="index.php">
+    <form id="formularioRegistro"  action="index.php" method="post" >
       <table id="tablaRegistro">
         <tr>
           <td><span>Nombre:</span></td>
@@ -19,14 +19,14 @@
         <tr>
           <td><span>DNI:</span></td>
           <td><input type="text" maxlength="9" name="dni" required></td>
-          <td><span>Contraseña:</td>
-          <td><input type="text" name="passal" required></td>
+          <td><span>Contraseña:</span></td>
+          <td><input type="password" name="passal" required></td>
         </tr>
         <tr>
           <td><span>Telefono:</span></td>
           <td><input type="text" name="telefono" required></td>
           <td><span>Email:</span></td>
-          <td><input type="text" name="correo" maxlength="100" required></td>
+          <td><input type="email" name="correo" maxlength="100" required></td>
         </tr>
         <tr>
           <td><span>Provincia:</span></td>

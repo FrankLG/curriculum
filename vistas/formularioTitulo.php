@@ -2,7 +2,7 @@
     
 ?>
 
-<form  action="index.php">
+<form  action="index.php" method="post" >
     Titulo: <input type="text" name="nombreti" required> Centro<input type="text" name="centro" required> Fecha fin:<input type="date" name="fechafin" required> Tipo: <select name="tipo">
         <option>Grado universitario</option>
         <option>C.F.G.S.</option>
