@@ -19,6 +19,11 @@
         echo "en paro";
     }
         echo "<form action='index.php'>"
+            . "<input type='hidden' name='accion' value='cambioContra'>"
+            . "<input type='submit' value='Cambiar Contraseña'>"
+            . "</form>";
+
+        echo "<form action='index.php'>"
             . "<input type='hidden' name='accion' value='modificarInfoPersonal'>"
             . "<input type='submit' value='Modificar Información'>"
             . "</form>";

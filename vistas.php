@@ -1,5 +1,5 @@
 <?php
-    class vistas {
+    class Vistas {
         public static function mostrar($nombreVista, $datos = null){
             include_once("vistas/header.php");
 			$arrayVistas = explode(",", $nombreVista);

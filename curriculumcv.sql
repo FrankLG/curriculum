@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-11-2017 a las 12:48:28
--- Versión del servidor: 10.1.26-MariaDB
--- Versión de PHP: 7.1.9
+-- Tiempo de generación: 03-12-2017 a las 18:05:52
+-- Versión del servidor: 10.1.28-MariaDB
+-- Versión de PHP: 7.1.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -68,15 +68,6 @@ CREATE TABLE `alumno` (
   `validado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Volcado de datos para la tabla `alumno`
---
-
-INSERT INTO `alumno` (`alumnoid`, `dni`, `nombreal`, `apellido`, `telefono`, `imagen`, `correo`, `direccion`, `localidad`, `provincia`, `activo`, `puntuacion`, `passal`, `validado`) VALUES
-(24, '77654312x', 'Francisco Miguel', 'Linares GonzÃ¡lez', '661343652', NULL, 'frankiemlg@gmail.com', 'c/ general luque nÂº 69 1Âºd', 'almeria', 'almeria', 0, 6, 'user', 1),
-(25, '77160152M', 'Francisco Ãngel', 'lopez segura', '123456789', NULL, 'miguelille@hotmail.com', 'calle carajo', 'almeria', 'almeria', 0, 5, 'user', 1),
-(26, '1', 'asdasd', 'asdasd', 'asdasdasd', NULL, 'asdasd', 'asdasd', 'asdasd', 'asdasd', 0, 0, 'user', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -89,16 +80,6 @@ CREATE TABLE `habilidad` (
   `descripcion` varchar(1000) COLLATE utf8_spanish_ci NOT NULL,
   `alumnoid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `habilidad`
---
-
-INSERT INTO `habilidad` (`habilidadid`, `nombreha`, `descripcion`, `alumnoid`) VALUES
-(18, 'asda', 'asdasd', 19),
-(19, 'la mejor', 'Describe tu habilidad/conocimiento (como la conseguiste, como de bueno eres en ello...)', 19),
-(20, 'la mejor', 'Describe tu habilidad/conocimiento (como la conseguiste, como de bueno eres en ello...)', 19),
-(21, 'asdasd', 'asdasd', 24);
 
 -- --------------------------------------------------------
 
@@ -134,14 +115,6 @@ CREATE TABLE `idiomaalumno` (
   `idiomaid` int(11) NOT NULL,
   `nivelid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
---
--- Volcado de datos para la tabla `idiomaalumno`
---
-
-INSERT INTO `idiomaalumno` (`alumnoid`, `idiomaid`, `nivelid`) VALUES
-(19, 1, 1),
-(24, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -200,27 +173,6 @@ CREATE TABLE `otrosalumno` (
   `asignado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
---
--- Volcado de datos para la tabla `otrosalumno`
---
-
-INSERT INTO `otrosalumno` (`alumnoid`, `otrosid`, `asignado`) VALUES
-(24, 1, 1),
-(24, 2, 1),
-(24, 3, 0),
-(24, 4, 0),
-(24, 5, 0),
-(25, 1, 0),
-(25, 2, 0),
-(25, 3, 0),
-(25, 4, 0),
-(25, 5, 0),
-(26, 1, 0),
-(26, 2, 0),
-(26, 3, 0),
-(26, 4, 0),
-(26, 5, 0);
-
 -- --------------------------------------------------------
 
 --
@@ -237,15 +189,6 @@ CREATE TABLE `titulo` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
--- Volcado de datos para la tabla `titulo`
---
-
-INSERT INTO `titulo` (`tituloid`, `nombreti`, `centro`, `fechafin`, `tipo`, `alumnoid`) VALUES
-(1, 'titulo1', 'celia viÃ±as', '2017-11-01', 'C.F.G.S.', 19),
-(2, 'titulo1', 'celia viÃ±as', '2017-11-01', 'C.F.G.S.', 19),
-(3, 'asd', 'asd', '2017-11-30', 'Grado universitario', 24);
-
---
 -- Índices para tablas volcadas
 --
 
@@ -259,7 +202,8 @@ ALTER TABLE `admin`
 -- Indices de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  ADD PRIMARY KEY (`alumnoid`);
+  ADD PRIMARY KEY (`alumnoid`),
+  ADD UNIQUE KEY `correo` (`correo`);
 
 --
 -- Indices de la tabla `habilidad`
@@ -317,7 +261,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `alumnoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `alumnoid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `habilidad`

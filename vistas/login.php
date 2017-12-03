@@ -28,4 +28,5 @@
       </tr>
 
   </form>
+  <a href="index.php?accion=recuperarContra">recuperar Contraseña</a>
 </div>

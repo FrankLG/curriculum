@@ -7,10 +7,10 @@
             $nombreha = $_REQUEST["nombreha"];
             $descripcion = $_REQUEST["descripcion"];
 
-            $db = new BD();
+            $bd = new BD();
             $sql = "INSERT INTO habilidad(nombreha,descripcion,alumnoid ) VALUES('$nombreha','$descripcion','$id')";
             
-            if ($db->ejecutar($sql) == 1)
+            if ($bd->ejecutar($sql) == 1)
                 $r = true;
             else
 				$r =  false;
@@ -19,16 +19,16 @@
         }    
         
         public static function getHabilidad($id){
-            $db = new BD();
+            $bd = new BD();
             $sql = "SELECT * FROM habilidad WHERE alumnoid= $id";
-            $tabla= $db->consultar($sql);
+            $tabla= $bd->consultar($sql);
             return $tabla;
         }
         
         public static function borrarHabilidad($id, $habilidad){
-            $db = new BD();
+            $bd = new BD();
             $sql = "DELETE FROM habilidad WHERE alumnoid=$id AND habilidadid=$habilidad";
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
         }
     }
 ?>

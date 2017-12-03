@@ -35,7 +35,7 @@
                 $geografica= false;
             }
 
-            $db = new BD();
+            $bd = new BD();
             // si estaba marcado inserta la tupla correspondiente, sino estaba marcada la borra
             
             if($conducir){
@@ -43,57 +43,57 @@
             }else{
                 $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=1";
             }
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
             
             if($incorporacion){
                 $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=2";
             }else{
                 $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=2"; 
             }
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
 
             if($vehiculo){
                 $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=3";
             }else{
                 $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=3";
             }
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
             
             if($flexibilidad){
                 $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=4";
             }else{
                 $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=4"; 
             }
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
             
             if($geografica){
                 $sql = "UPDATE otrosalumno SET asignado=1 WHERE alumnoid=$id and otrosid=5";
             }else{
                 $sql = "UPDATE otrosalumno SET asignado=0 WHERE alumnoid=$id and otrosid=5";
             }
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
             
             return true;
             
         }    
         
         public static function getOtros($id){
-            $db = new BD();
+            $bd = new BD();
             $sql = "SELECT otrosid, asignado
             FROM otrosalumno
             WHERE alumnoid= $id";
-            $tabla= $db->consultar($sql);
+            $tabla= $bd->consultar($sql);
 
             return $tabla;
         }
         
         public static function crearOtros($id){
-            $db = new BD();
-            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 1, 0)");
-            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 2, 0)");
-            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 3, 0)");
-            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 4, 0)");
-            $db->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 5, 0)");
+            $bd = new BD();
+            $bd->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 1, 0)");
+            $bd->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 2, 0)");
+            $bd->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 3, 0)");
+            $bd->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 4, 0)");
+            $bd->ejecutar("INSERT INTO otrosalumno(alumnoid,otrosid,asignado) VALUES('$id', 5, 0)");
             
         }
         

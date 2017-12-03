@@ -9,10 +9,10 @@
             $fechafin = $_REQUEST["fechafin"];
             $tipo = $_REQUEST["tipo"];
 
-            $db = new BD();
+            $bd = new BD();
             $sql = "INSERT INTO titulo(nombreti,centro,fechafin,tipo,alumnoid ) VALUES('$nombreti','$centro','$fechafin','$tipo', '$id')";
             
-            if ($db->ejecutar($sql) == 1)
+            if ($bd->ejecutar($sql) == 1)
                 $r = true;
             else
 				$r =  false;
@@ -20,16 +20,16 @@
         }    
         
         public static function getTitulo($id){
-            $db = new BD();
+            $bd = new BD();
             $sql = "SELECT * FROM titulo WHERE alumnoid= $id";
-            $tabla= $db->consultar($sql);
+            $tabla= $bd->consultar($sql);
             return $tabla;
         }
         
          public static function borrarTitulo($id, $titulo){
-            $db = new BD();
+            $bd = new BD();
             $sql = "DELETE FROM titulo WHERE alumnoid=$id AND tituloid=$titulo";
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
         }
     }
 ?>

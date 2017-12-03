@@ -1,10 +1,10 @@
 <?php
     include("vistas.php");
-    include("Usuarios.php");
-    include("Titulos.php");
-    include("Habilidades.php");
-    include("Idiomas.php");
-    include("Otros.php");
+    include("usuarios.php");
+    include("titulos.php");
+    include("habilidades.php");
+    include("idiomas.php");
+    include("otros.php");
     session_start();
 
     if(isset($_REQUEST["accion"]))
@@ -14,6 +14,7 @@
 
     switch($accion){
         case 'mostrarLogin':
+			//mensaje();
             if(isset($_SESSION['tipo'])){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
@@ -69,7 +70,7 @@
                 if ($r){
 			$datos["mensaje"]="Usuario creado con exito, en los proximos dias un admin revisara su solicitud, sera informado en el email proporcionado";
 			$datos["tipoMensaje"]="correcto";
-                        mail("franlg.alm@gmail.com","Nuevo registro", "Un usuario acaba de registrarse en la plataforma, deberias echar un vistazo");
+        
                     }else{
 			$datos["tipoMensaje"]="error";
 			$datos["mensaje"]="Error al crear usuario";
@@ -190,11 +191,20 @@
             }
 
             break;
+        case "vistaAdmin2":
+            if($_SESSION["tipo"]="admin"){
+                $datos["tipo"]="trabajando";
+                $datos["usuarios"]=Usuarios::usuariosTrabajando();
+                Vistas::mostrar("vistaAdministrador",$datos);
+            }else{
+                echo "No tiene permisos para acceder a esta zona";
+            }
+            break;
 
         case "busqueda":
             if($_SESSION['tipo']=="admin"){
                 $datos["usuarios"]=Usuarios::busqueda();
-                $datos["tipo"]="normal";
+                $datos["tipo"]="busqueda";
                 Vistas::mostrar("vistaAdministrador", $datos);
             }else{
                 echo "No tiene permisos para realizar esta acción";
@@ -243,6 +253,35 @@
                 Vistas::mostrar("login");
 
             break;
+        case "cambioContra":
+            if(isset($_SESSION["tipo"]) || isset($_SESSION["id"])){
+                Vistas::mostrar("modificarContra");
+            }else{
+                echo "No tienes permisos o no estas logueado.";
+            }
+            break;
+        case "cambiarContra":
+            if(isset($_SESSION["tipo"]) || isset($_SESSION["id"])){
+                if(Usuarios::cambiarContra($_REQUEST["contra"])==1){
+                    echo "Cambio de contraseña correcto";
+                    mainUsuario();
+                }else{
+                    echo "Error en el cambio de contraseña";
+                    mainUsuario();
+                }
+            }else{
+                echo "No tienes permisos o no estas logueado.";
+            }
+            break;
+        case "recuperarContra":
+            Vistas::mostrar("recuperarContra");
+            break;
+        case "recuperarContra2":
+                Usuarios::recuperarContra($_REQUEST["correo"]);
+                $datos["mensaje"]="Se ha enviado un mensaje a su cuenta de email con la contraseña.";
+                $datos["tipoMensaje"]="correcto";
+                Vistas::mostrar("login",$datos);
+            break;
         default:
             echo "Error 404, La página solicitada no ha sido encontrada.";
     }
@@ -268,6 +307,28 @@ function mainUsuarioAdmin($id) {
 		Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);
 }
 
+function mensaje($msj, $email){
+    $para =$email;
+    $titulo = 'Titulo de prueba';
+    $mensaje = '
+                <html>
+                <head>
+                  <title>Lameme los huevos Miguel Ángel</title>
+                </head>
+                <body>
+                  <p>$msj</p>
+                </body>
+                </html>
+                ';
+    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+    $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
+    // Cabeceras adicionales
+    $cabeceras .= 'From: I.E.S Celia Viñas <celiacurriculums@gmail.com>' . "\r\n";
+
+ 
+    
+  mail($para, $titulo, $mensaje, $cabeceras);
+}
 
 ?>

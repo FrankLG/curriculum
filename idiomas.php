@@ -48,9 +48,9 @@
                     $idnivel=6;
             }
             
-            $db = new BD();
+            $bd = new BD();
             $sql = "INSERT INTO idiomaalumno(alumnoid,idiomaid,nivelid) VALUES('$id','$idioma','$idnivel')";
-            if ($db->ejecutar($sql) == 1)
+            if ($bd->ejecutar($sql) == 1)
                 $r = true;
             else
 				$r =  false;
@@ -59,19 +59,19 @@
         }    
         
         public static function getIdioma($id){
-            $db = new BD();
+            $bd = new BD();
             $sql = "SELECT nombreid, nombreni, alumnoid, idiomaalumno.idiomaid
             FROM idioma INNER JOIN idiomaalumno ON   idioma.idiomaid=idiomaalumno.idiomaid INNER JOIN nivel ON idiomaalumno.nivelid=nivel.nivelid
              WHERE alumnoid=  $id";
-            $tabla= $db->consultar($sql);
+            $tabla= $bd->consultar($sql);
             
             return $tabla;
         }
         
           public static function borrarIdioma($id, $idioma){
-            $db = new BD();
+            $bd = new BD();
             $sql = "DELETE FROM idiomaalumno WHERE alumnoid=$id AND idiomaid=$idioma";
-            $db->ejecutar($sql);
+            $bd->ejecutar($sql);
         }
     }
 ?>
