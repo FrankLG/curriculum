@@ -8,7 +8,7 @@
     ?>
   </div>
   <div id="divRegistroInterior">
-    <form id="formularioRegistro"  action="index.php" method="post" >
+    <form id="formularioRegistro"  action="index.php" method="post">
       <table id="tablaRegistro">
         <tr>
           <td><span>Nombre:</span></td>
@@ -20,7 +20,8 @@
           <td><span>DNI:</span></td>
           <td><input type="text" maxlength="9" name="dni" required></td>
           <td><span>Contraseña:</span></td>
-          <td><input type="password" name="passal" required></td>
+          <td><input type="password" name="passal" id="contrasena1" required></td>
+          <td><input type="password" id="contrasena2" required></td>  
         </tr>
         <tr>
           <td><span>Telefono:</span></td>
@@ -49,6 +50,35 @@
 
 
     </form>
+     
+      <script>
+          $("#formularioRegistro").submit(function() {
+                var c1 = document.getElementById("contrasena1").value;
+                var c2 = document.getElementById("contrasena2").value;
+                var espacios = false;
+                var cont = 0;
+
+                while (!espacios && (cont < c1.length)) {
+                  if (c1.charAt(cont) == " ")
+                    espacios = true;
+                    cont++;
+                }
+
+                if (espacios) {
+                  alert ("La contraseña no puede contener espacios en blanco");
+                  return false;
+                }else if (c1.length == 0 || c2.length == 0) {
+                    alert("Los campos de la password no pueden quedar vacios");
+                    return false;
+                } else if (c1 != c2) {
+                    alert("Las passwords deben de coincidir");
+                    return false;
+                } else {
+                    return true; 
+                }
+          }
+         );  
+      </script>
 
   </div>
 </div>
