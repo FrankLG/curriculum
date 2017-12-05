@@ -31,7 +31,7 @@
             $activo = $_REQUEST["activo"];
 
             $bd = new BD();
-            $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal, validado) VALUES('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo','$passal', 0)";
+            $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal, validado) VALUES('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo',MD5('$passal'), 0)";
 
             if ($bd->ejecutar($sql) == 1)
 								$r = true;
@@ -58,7 +58,7 @@
 	public static function logueoUser($dni, $contra){
             $bd= new BD();
             // primero comprobamos que si es un administrador
-            $sql= "SELECT * FROM alumno WHERE dni='$dni' AND passal='$contra' ";
+            $sql= "SELECT * FROM alumno WHERE dni='$dni' AND passal=MD5('$contra') ";
             //echo $sql;
             $resultado = $bd->consultar($sql);
 
@@ -230,7 +230,7 @@
         public static function cambiarContra($contra){
             $bd = new BD();
 
-            $sql = "UPDATE alumno SET passal='$contra' WHERE alumnoid='".$_SESSION["id"]."'";
+            $sql = "UPDATE alumno SET passal=MD5('$contra') WHERE alumnoid='".$_SESSION["id"]."'";
 
             $resultado=$bd->ejecutar($sql);
 
