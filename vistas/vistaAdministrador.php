@@ -15,7 +15,7 @@
                 echo "<span>".$persona['telefono']."</span>";
                 echo "<span>".$persona['correo']."</span>";
                 echo "<a href='index.php?accion=borrarUsuario&id=".$persona['alumnoid']."'>Declinar Registro</a>";
-                echo "<form action='index.php'>"
+                echo "<form action='index.php' method='post'>"
                         . "<input type='number' name='puntuacion' required='required' min='0' max='10'>"
                         . "<input type='hidden' name='accion' value='aceptarUsuario'>"
                         . "<input type='hidden' name='id' value=".$persona['alumnoid'].">"
@@ -30,7 +30,7 @@
 ?>
         <a href='index.php?accion=validarUsuarios'>Vista Validación</a>
 
-        <form action='index.php'>
+        <form action='index.php' method="post">
           <input type='hidden' name='accion' value='busqueda'>
           <input type='text' name='buscar'>
         </form>
@@ -50,7 +50,7 @@
     }else if($datos["tipo"]=="busqueda"){
         echo "<a href='index.php?accion=validarUsuarios'>Vista Validación</a>";
         echo "<a href='index.php?accion=vistaAdmin2'>Vista ocupados</a>";
-        echo "<form action='index.php'>";
+        echo "<form action='index.php' method='post'>";
         echo "<input type='hidden' name='accion' value='busqueda'>";
         echo "<input type='text' name='buscar'> <input type='submit' value='buscar'>";
         echo "</form>";

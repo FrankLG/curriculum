@@ -11,7 +11,7 @@
 
 <div id="divLogin">
   <div id="divImagenLogin"></div>
-  <form  action="index.php">
+  <form  action="index.php" method="post">
     <table id="tablaLogin">
       <tr>
         <td><span>Usuario:</span></td>

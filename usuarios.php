@@ -31,13 +31,18 @@
             $activo = $_REQUEST["activo"];
 
             $bd = new BD();
-            $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal, validado) VALUES('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo',MD5('$passal'), 0)";
+            $sql = "INSERT INTO alumno(dni,nombreal,apellido,telefono,correo,direccion,localidad,provincia,activo,passal, validado) VALUES ('$dni','$nombreal','$apellido','$telefono','$correo','$direccion','$localidad','$provincia','$activo',MD5('$passal'), 0)";
 
             if ($bd->ejecutar($sql) == 1)
-								$r = true;
-						else
-								$r =  false;
-					  return $r;
+				$r = true;
+			else
+				$r =  false;
+
+            $msj="Un usuario ha solicitado un registro, cuanto antes lo aceptes antes podra completar su curriculum";
+            $titulo="Nuevo solicitud de usuario";
+            $para="frankiemlg@gmail.com";
+			Usuarios::mensajeCorreo($msj,$titulo,$para);
+            return $r;
         }
 
         public static function logueoAdmin($dni, $contra){
@@ -46,7 +51,6 @@
             $sql= "SELECT * FROM admin WHERE username='$dni' AND passad='$contra'";
             //echo $sql;
             $resultado = $bd->consultar($sql);
-
             if(count($resultado) > 0){
                 $_SESSION['tipo']="admin";
                 return true;
@@ -83,6 +87,7 @@
                 return false;
             }
         }
+        
         public static function usuariosParo(){
                 $bd = new BD();
 
@@ -115,7 +120,10 @@
             $sql = "UPDATE alumno SET validado='1', puntuacion='$puntuacion' WHERE alumnoid='$id'";
             $bd->ejecutar($sql);
             $msj="un administrador ha validado tu registro ya puedes acceder para completar tu información";
-            Usuarios::mensaje($msj, $id);
+            $titulo="Registro aceptado";
+            Usuarios::mensajeId($msj,$titulo,$id);
+
+
            
         }
 
@@ -236,27 +244,14 @@
 
             return $resultado;
         }
-        public static function mensaje($msj, $id=null, $correo=null){
+        public static function mensajeCorreo($msj,$titulo,$correo){
             $bd = new BD();
-            console.log("hola");
-            if(is_null($id)){
-                $sql = "SELECT correo FROM alumno WHERE alumnoid='$id'";
-
-            $resultado = $bd->consultar($sql);
-            $resultado= $resultado[0];
-            $resultado= $resultado["correo"];
-               $para=$resultado; 
-            }else{
-                $para=$correo;
-            }
-            
-
-            
-            $titulo = 'Mensaje automatico de I.E.S. Celia viñas';
+            $para=$correo; 
+                        
             $mensaje = '
                         <html>
                         <head>
-                          <title>$msj</title>
+                          <title></title>
                         </head>
                         <body>
                           <p>'.$msj.'</p>
@@ -265,12 +260,45 @@
                         ';
             $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
             $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $cabeceras .= 'From: I.E.S Celia Viñas <celiacurriculums@gmail.com>' . "\r\n";
+            $cabeceras .= 'From: I.E.S Celia Viñas <iesceliaciclos.org>' . "\r\n";
 
             
     
             mail($para, $titulo, $mensaje, $cabeceras);
+        }
+        public static function mensajeId($msj,$titulo,$id){
+            $bd = new BD();
+            
+            
+                $sql = "SELECT correo FROM alumno WHERE alumnoid='$id'";
 
+                $resultado = $bd->consultar($sql);
+                $resultado= $resultado[0];
+                $resultado= $resultado["correo"];
+                $para=$resultado; 
+            
+            
+
+            
+            $titulo = 'Mensaje automatico de I.E.S. Celia viñas';
+            $mensaje = '
+                        <html>
+                        <head>
+                          <title></title>
+                        </head>
+                        <body>
+                          <p>'.$msj.'</p>
+                          <a href="iesceliaciclos.org/curriculum">Ir a la web</a>
+                        </body>
+                        </html>
+                        ';
+            $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+            $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+            $cabeceras .= 'From: I.E.S Celia Viñas <iesceliaciclos.org>' . "\r\n";
+
+            
+    
+            $resultado=mail($para, $titulo, $mensaje, $cabeceras);
         }
         public static function mensajeRecuperacion($msj, $correo){
             $bd = new BD();
@@ -283,6 +311,7 @@
                         </head>
                         <body>
                           <p>'.$msj.'</p>
+                          <a href="iesceliaciclos.org/curriculum">Ir a la web</a>
                         </body>
                         </html>
                         ';
@@ -299,15 +328,32 @@
 
             $bd = new BD();
 
+            $contra=Usuarios::contraRandom();
+
+            $sql= " UPDATE alumno SET passal = '".$contra['encriptada']."' WHERE correo = '$correo'";
+
+            $bd->ejecutar($sql);
+
             $sql = "SELECT passal FROM alumno WHERE correo='$correo'";
 
             $resultado=$bd->consultar($sql);
             $resultado=$resultado[0];
             $resultado=$resultado[0];
 
-            $msj="La contraseña solicitada es:' $resultado ', si piensa que la seguridad de su cuenta de email puede estar comprometida le recomendamos que cambie la contraseña nada mas entrar.";
+            $msj="Se ha cambiado su contraseña la nueva es:'".$contra['contra']."'. Le recomendamos que cambie la contraseña lo antes posible.";
             Usuarios::mensajeRecuperacion($msj,$correo);
 
+        }
+        public static function contraRandom(){
+            $nuevaContra="";
+            $cadena ="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+            for($i = 0 ; $i <= 10 ; $i++ ){
+                $aleatorio=rand(0,62);
+                $nuevaContra.=$cadena[$aleatorio];
+            }
+            $datos["encriptada"]=MD5($nuevaContra);
+            $datos["contra"]=$nuevaContra;            
+            return $datos; 
         } 
         
     }

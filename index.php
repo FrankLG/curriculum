@@ -14,7 +14,7 @@
 
     switch($accion){
         case 'mostrarLogin':
-			//mensaje();
+			//ensaje("hola","franlg.alm@gmail.com");
             if(isset($_SESSION['tipo'])){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
@@ -30,6 +30,7 @@
         // Para reconocer que tipo de usuario se loguea
         case 'comprobarLogin':
             $resultado= Usuarios::logueoAdmin($_REQUEST["user"], $_REQUEST["pass"]);
+           
             if($resultado){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
@@ -39,6 +40,7 @@
                 if($resultado){
                    	mainUsuario();
 		}else{
+					
                     $datos["tipoMensaje"]="error";
                     $datos["mensaje"]="El usuario no existe o esta a la espera de que un admin lo apruebe";
                     Vistas::mostrar("login",$datos);
@@ -307,7 +309,7 @@ function mainUsuarioAdmin($id) {
 		Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);
 }
 
-function mensaje($msj, $email){
+/*function mensaje($msj, $email){
     $para =$email;
     $titulo = 'Titulo de prueba';
     $mensaje = '
@@ -316,7 +318,7 @@ function mensaje($msj, $email){
                   <title>Lameme los huevos Miguel Ángel</title>
                 </head>
                 <body>
-                  <p>$msj</p>
+                  <p>'.$msj.'</p>
                 </body>
                 </html>
                 ';
@@ -328,7 +330,8 @@ function mensaje($msj, $email){
 
  
     
-  mail($para, $titulo, $mensaje, $cabeceras);
-}
+  $resultado=mail($para, $titulo, $mensaje, $cabeceras);
+  var_dump($resultado);
+}*/
 
 ?>

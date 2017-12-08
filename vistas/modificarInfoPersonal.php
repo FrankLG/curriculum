@@ -2,7 +2,7 @@
 
     $info = $datos[0];
 
-    echo "<form action='index.php'>"
+    echo "<form action='index.php' method='post'>"
     . "Nombre: <input type='text' name='nombreal' value='".$info['nombreal']."'><br>"
             . "Apellidos: <input type='text' name='apellido' value='".$info['apellido']."'><br>"
             . "Telefono: <input type='text' name='telefono' value='".$info['telefono']."'><br>"

@@ -11,7 +11,7 @@
 </script>
 
 <h3>Tu registro ha sido aceptado, por favor introduce la información que creas oportuna.</h3>
-<form>
+<form method="post">
     <fieldset class="titulacion">
         <h2>Titulación oficial</h2>
         Titulo: <input type="text" name="nombreti"> Centro<input type="text" name="centro"> Fecha fin:<input type="date" name="fechafin"> Tipo: <select name="tipo">

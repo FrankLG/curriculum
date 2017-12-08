@@ -8,15 +8,16 @@
 			private $conexion;
 			
 			public function __construct() {
-					$this->host = "localhost";
-					$this->usuario = "root";
-					$this->pass = "";
+					$this->host = "iesceliaciclos.org";
+					$this->usuario = "curriculumcv";
+					$this->pass = "mDm4t8!6";
 					$this->nombreBD = "curriculumcv";
 					$this->conexion = null;
 			}
 			
 			public function conectar() {
 					$this->conexion = new Mysqli($this->host, $this->usuario, $this->pass, $this->nombreBD);
+					
 			}
 			
 			public function desconectar() {
