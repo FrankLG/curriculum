@@ -45,8 +45,8 @@ $contador=2;
 ?>
         <div class='divsMenu'><a class='botonesMenu' href='index.php?accion=validarUsuarios'><span>Vista Validación</span></a></div>
         <div id="divFormularioBusqueda" ><form class="formularioBusqueda" action='index.php' method="post">
-          <input type='hidden' name='accion' value='busqueda'>
-          <input type='text' name='buscar'>
+          <input type='hidden' name='accion' value='busqueda' >
+          <input type='text' name='buscar' required="required">
           <input type='image' name="imagen" src="vistas/css/lupa.svg" style="width:15px; height: 15px; border:none;">
 
         </form></div></div>
@@ -87,8 +87,8 @@ $contador=2;
         echo "<div class='divsMenu'><a class='botonesMenu' href='index.php?accion=validarUsuarios'><span>Vista Validación</span></a></div>";
         echo "<div class='divsMenu'><a class='botonesMenu' href='index.php?accion=vistaAdmin2'><span>Vista ocupados</span></a></div>";
         echo "<div id='divFormularioBusqueda'><form class='formularioBusqueda' action='index.php' method='post'>";
-        echo "<input type='hidden' name='accion' value='busqueda'>";
-        echo "<input type='text' name='buscar'> <input type='image' name='imagen' src='vistas/css/lupa.svg' style='width:15px; height: 15px; border:none;'>";
+        echo "<input type='hidden' name='accion' value='busqueda' >";
+        echo "<input type='text' name='buscar' required='required'> <input type='image' name='imagen' src='vistas/css/lupa.svg' style='width:15px; height: 15px; border:none;'>";
         echo "</form></div></div>";
         
         $comprobacion=$usuarios;
@@ -105,7 +105,7 @@ $contador=2;
                 echo "<td><div class='usuario'><div style='width:120px; height:150px; display:inline-block; border: 1px solid black;'>Foto</div>";
                 echo "<div class='info'><table class='tablaAdministración'><tr><td colspan='2'><span>".$personas['nombreal']."&nbsp;".$personas['apellido']."</span></td>";
                 echo "<td><span>Puntuacion</span></td>";
-                echo "<td><a id='borrarVAdmin' href='#' onclick='javascript:Delete(".$persona['alumnoid'].")'><img src='vistas/css/basura.svg' id='iconoBasura'></a></td></tr>";
+                echo "<td><a id='borrarVAdmin' href='#' onclick='javascript:Delete(".$personas['alumnoid'].")'><img src='vistas/css/basura.svg' id='iconoBasura'></a></td></tr>";
                 echo "<tr><td><span>".$personas['telefono']."</span></td>";
                 echo "<td><span>".$personas['correo']."</span></td>";
                 echo "<td align='center'><span> ".$personas['puntuacion']."</span></td>";
