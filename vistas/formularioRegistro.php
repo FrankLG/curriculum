@@ -21,29 +21,34 @@
           <td><input type="text" maxlength="9" name="dni" required></td>
           <td><span>Contraseña:</span></td>
           <td><input type="password" name="passal" id="contrasena1" required></td>
-          <td><input type="password" id="contrasena2" required></td>  
+            
         </tr>
         <tr>
           <td><span>Telefono:</span></td>
           <td><input type="text" name="telefono" required></td>
-          <td><span>Email:</span></td>
-          <td><input type="email" name="correo" maxlength="100" required></td>
+          <td></td>
+          <td><input type="password" id="contrasena2" required placeholder="Confirmar contraseña."></td>
         </tr>
         <tr>
           <td><span>Provincia:</span></td>
           <td><input type="text" name="provincia" maxlength="100" required></td>
-          <td><span>Localidad:</span></td>
-          <td><input type="text" name="localidad" maxlength="100" required></td>
+          <td><span>Email:</span></td>
+          <td><input type="email" name="correo" maxlength="100" required></td>
         </tr>
         <tr>
           <td><span>Dirección</span></td>
           <td><input type="text" name="direccion" maxlength="100" required></td>
+          <td><span>Localidad:</span></td>
+          <td><input type="text" name="localidad" maxlength="100" required></td>
+        </tr>
+        <tr>
+          <td class="centrado"><input type="hidden" name="accion" value="registroUsuario"><input class="botonSubmit" type="submit" value="Enviar"></td>
+          <td></td>
           <td><span>Activo:</span></td>
           <td><span>Si </span><input type="radio" name="activo" value="1"> <span>No </span><input type="radio" name="activo" value="0" checked></td>
         </tr>
         <tr>
-          <td class="centrado" colspan="2"><input type="hidden" name="accion" value="registroUsuario"><input class="botonSubmit" type="submit" value="Completar registro"></td>
-          <td class="centrado" colspan="2"><a class="enlaces" id="registroVolverAtras" href="index.php?accion=mostrarLogin"><span>Volver atras</span></a></td>
+          <td class="centrado"><a class="enlaces" id="registroVolverAtras" href="index.php?accion=mostrarLogin"><span>Volver atras</span></a></td>
         </tr>
 
       </table>

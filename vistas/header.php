@@ -8,6 +8,6 @@
 	<body>
         <?php
             if(isset($_SESSION['tipo']) || isset($_SESSION['id'])){
-                echo "<a href='index.php?accion=desconectar'>Desconectar</a>";
+                echo "<div id='barraSuperior'><div class='divDesconectar'><a class='botonesMenu' id='botonDesconectar' href='index.php?accion=desconectar'><span>Desconectar</span></a></div>";
 			}
         ?>
