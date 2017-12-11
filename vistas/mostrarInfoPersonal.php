@@ -4,8 +4,8 @@
     $info = $info[0];
     if(isset($_SESSION["tipo"])){
        echo "<a href='index.php?accion=vistaAdmin'>Volver a vista administrador</a>";
-    }
-    echo "<h3>Información personal</h3>"
+    } echo "</div>";
+    echo " <div id='vistausuario'><h3>Información personal</h3>"
             . "Nombre: ".$info['nombreal']." ".$info['apellido']."<br>"
             . "Telefono: ".$info['telefono']."<br>"
             . "Email: ".$info['correo']."<br>"

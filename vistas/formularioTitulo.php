@@ -8,8 +8,7 @@
         <option>C.F.G.S.</option>
         <option>C.F.G.M.</option>
         <option>Bachillerato</option>
-        </select><br>
- 
+        </select>
     <input type="hidden" name="accion" value="insertarTitulo">
-    <input type="submit" value="Insertar titulo">
+    <input type="submit" value="Insertar titulo"><br><br>
 </form>

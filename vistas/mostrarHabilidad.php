@@ -3,11 +3,13 @@
     echo "<h3>Habilidades y conocimientos extra</h3>";
 
     $tablaHabilidad = $datos["tablaHabilidad"];
+
+    echo "<table class='tabla'>";
+    echo "<tr><th>Habilidad</th><th>Descripción</th><th>Opción</th><tr>";
     foreach ($tablaHabilidad as $dato){
-        //echo "idtitulo: ".$dato[0]."|||   ";
-        echo "Nombre habilidad: ".$dato[1]."|||     ";
-        echo "descripción :".$dato[2]." |||     ";
-        echo "<a href='index.php?accion=borrarHabilidad&id=".$dato['alumnoid']."&habilidad=".$dato['habilidadid']."'>Borrar</a>";
-        echo "<br>";
+        echo "<tr><td>".$dato[1]."</td>";
+        echo "<td>".$dato[2]."</td>";
+        echo "<td><a href='index.php?accion=borrarHabilidad&id=".$dato['alumnoid']."&habilidad=".$dato['habilidadid']."'>Borrar</a></td></tr>";
     }
+   echo "</table><br>";
 ?>
