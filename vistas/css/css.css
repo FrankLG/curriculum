@@ -266,3 +266,10 @@ span#textoNoUsuarios{
     background-color: #336eff;
     color: white;
 }
+@media only screen and (orientation:portrait){
+        #apaisado { display:none; }
+        #warning-message { display:block; }
+    }
+    @media only screen and (orientation:landscape){
+        #warning-message { display:none; }
+    }
