@@ -234,11 +234,14 @@ span#textoNoUsuarios{
   height: 25px;
   border:none;
 }
+
+/*VISTA USUARIO*/
+
 #vistausuario{
   border: 1px solid black;
   border-radius: 8px;
   margin: auto;
-  background-color: #f9f9f9;
+  background: url(noise.jpg);
   width: 80%;
   
 }
@@ -247,7 +250,7 @@ span#textoNoUsuarios{
     border-collapse: collapse;
     width: 80%;   
     margin: auto;
-
+    word-wrap: break-word;
 }
 
 .tabla td, .tabla th {
@@ -259,6 +262,10 @@ span#textoNoUsuarios{
 
 #vistausuario .tabla tr:hover {background-color: #ddd;}
 
+td{
+    word-wrap: break-word;
+}
+
 #vistausuario .tabla th {
     padding-top: 12px;
     padding-bottom: 12px;
@@ -266,9 +273,16 @@ span#textoNoUsuarios{
     background-color: #336eff;
     color: white;
 }
+
+
+
+/*FIN Vista Usuario*/
+
 @media only screen and (orientation:portrait){
         #apaisado { display:none; }
-        #warning-message { display:block; }
+        #warning-message { display:block; 
+          
+    }
     }
     @media only screen and (orientation:landscape){
         #warning-message { display:none; }

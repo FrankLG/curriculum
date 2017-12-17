@@ -3,6 +3,7 @@
 ?>
 
 <form  action="index.php" method="post" >
+    <tr><td>
    <select name="nombreid">
             <option value="ingles">Inglés</option> 
             <option value="frances">Francés</option> 
@@ -10,7 +11,7 @@
             <option value="aleman">Alemán</option> 
             <option value="arabe">Arabe</option> 
             <option value="ruso">Ruso</option> 
-        </select>
+        </select></td><td>
         <select name="nombreni">
            <option value="a1">A1</option> 
            <option value="a2">A2</option> 
@@ -18,7 +19,9 @@
            <option value="b2">B2</option>
            <option value="c1">C1</option> 
            <option value="c2">C2</option> 
-        </select>
+        </select></td>
       <input type="hidden" name="accion" value="insertarIdioma">
-    <input type="submit" value="Insertar Idioma">
+    <td><input type="submit" value="Insertar Idioma"></td></tr>
 </form>
+</table>
+<br>

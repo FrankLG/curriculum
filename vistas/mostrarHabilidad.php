@@ -11,5 +11,4 @@
         echo "<td>".$dato[2]."</td>";
         echo "<td><a href='index.php?accion=borrarHabilidad&id=".$dato['alumnoid']."&habilidad=".$dato['habilidadid']."'>Borrar</a></td></tr>";
     }
-   echo "</table><br>";
 ?>

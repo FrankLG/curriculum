@@ -9,7 +9,6 @@
         echo "</td></tr>";
         
     }
-echo "</table>";
- echo "<br>";
+
 ?>
 
