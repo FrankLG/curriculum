@@ -284,9 +284,24 @@
                 $datos["tipoMensaje"]="correcto";
                 Vistas::mostrar("login",$datos);
             break;
+        case "crearPDF":
+            $msj="";
+            $tabla["tablaInfo"]=Usuarios::infoUsuario($_SESSION["id"]);
+            $tabla["tablaTitulo"]= Titulos::getTitulo($_SESSION['id']);
+            $tabla["tablaHabilidad"] = Habilidades::getHabilidad($_SESSION['id']);
+            $tabla["mensaje"] = $msj;
+            $tabla["tablaIdioma"]=Idiomas::getIdioma($_SESSION['id']);
+            $tabla["tablaOtro"] = Otros::getOtros($_SESSION['id']);
+            
+            Vistas::mostrar("mostrarPDF", $tabla);
+            
+            break;
+            
         default:
             echo "Error 404, La página solicitada no ha sido encontrada.";
     }
+
+    
 
 
 

@@ -2,7 +2,7 @@
 
     $info = $datos[0];
 
-    echo "<form action='index.php' method='post'>"
+    echo "<div id='vistausuario'><form action='index.php' method='post'>"
     . "Nombre: <input type='text' name='nombreal' value='".$info['nombreal']."'><br>"
             . "Apellidos: <input type='text' name='apellido' value='".$info['apellido']."'><br>"
             . "Telefono: <input type='text' name='telefono' value='".$info['telefono']."'><br>"
@@ -25,4 +25,4 @@
     echo "<input type='hidden' name='accion' value='cambiarInfo'>"
         . "<input type='hidden' name='id' value='".$info['alumnoid']."'>"
         . "<input type='submit' value='Modificar'>"
-        . "</form>";
+        . "</form></div>";

@@ -1,8 +1,8 @@
-<form id="formularioRegistro" method="post">
+<div id='vistausuario'><form id="formularioRegistro" method="post">
 	<input type="hidden" name="accion" value="cambiarContra">
 	Escriba su contraseña <input type="password" id="contrasena1"  name="contra"> Escribala otra vez <input type="password" id="contrasena2" required>
 	<input type="submit" name="Cambiar">
-</form>
+    </form></div>
 
 <script>
           $("#formularioRegistro").submit(function() {

@@ -32,3 +32,8 @@
                 . "<input type='hidden' name='accion' value='seleccionarImagen'>"
                 . "<input type='submit' value='Añadir o cambiar imagen'>"
             . "</form>";
+
+         echo "<form action='index.php'>"
+                . "<input type='hidden' name='accion' value='crearPDF'>"
+                . "<input type='submit' value='Descargar curriculum en PDF'>"
+            . "</form>";
