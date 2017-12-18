@@ -1,5 +1,5 @@
 <?php
-    require_once("/pdf/mpdf.php");
+    require_once("vistas/pdf/mpdf.php");
     
     $info = $datos["tablaInfo"];
     $info = $info[0];
@@ -28,6 +28,7 @@
 
     $mpdf = new mPDF('c','A4');
     $mpdf->writeHTML($html);
+	sleep(2);
     $mpdf->Output("report.pdf", "I");
 
     

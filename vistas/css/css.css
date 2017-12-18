@@ -243,6 +243,8 @@ span#textoNoUsuarios{
   margin: auto;
   background: url(noise.jpg);
   width: 80%;
+  padding: 10px;
+  margin-top: 10px;
   
 }
 #vistausuario .tabla {
@@ -273,17 +275,50 @@ td{
     background-color: #336eff;
     color: white;
 }
+#buscador {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url('magnifier.svg');
+    background-position: 10px 10px; 
+    background-size: 21px 21px;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+#buscador:focus{
+  width: 100%;
+}
+input[type=number]::-webkit-outer-spin-button,
 
+input[type=number]::-webkit-inner-spin-button {
 
+    -webkit-appearance: none;
+
+    margin: 0;
+
+}
+
+ 
+
+input[type=number] {
+
+    -moz-appearance:textfield;
+
+}
 
 /*FIN Vista Usuario*/
 
-@media only screen and (orientation:portrait){
-        #apaisado { display:none; }
-        #warning-message { display:block; 
-          
+  @media only screen and (width: 383px;){
+        #apaisado { display:none;}
+        #warning-message { display:block;}
     }
-    }
-    @media only screen and (orientation:landscape){
+
+
+    @media only screen and (width: 384px;){
         #warning-message { display:none; }
     }

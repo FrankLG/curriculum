@@ -25,4 +25,5 @@
     echo "<input type='hidden' name='accion' value='cambiarInfo'>"
         . "<input type='hidden' name='id' value='".$info['alumnoid']."'>"
         . "<input type='submit' value='Modificar'>"
-        . "</form></div>";
+        . "</form>
+        <a href='index.php?accion=modificarUsuario&id=".$_SESSION['id']."'>Volver atras</a></div>";

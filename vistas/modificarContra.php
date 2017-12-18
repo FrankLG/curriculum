@@ -1,8 +1,14 @@
-<div id='vistausuario'><form id="formularioRegistro" method="post">
+<div class="container bg-light" style="margin-top: 10px;"><form id="formularioRegistro" method="post">
+  <div class=""></div>
 	<input type="hidden" name="accion" value="cambiarContra">
-	Escriba su contraseña <input type="password" id="contrasena1"  name="contra"> Escribala otra vez <input type="password" id="contrasena2" required>
-	<input type="submit" name="Cambiar">
-    </form></div>
+	Escriba su contraseña <input type="password" id="contrasena1"  name="contra"><br>
+  Escribala otra vez <input type="password" id="contrasena2" required><br>
+	<input type="submit" name="Cambiar" value="enviar">
+    </form>
+    <?php
+      echo "<a href='index.php?accion=modificarUsuario&id=".$_SESSION['id']."'>Volver atras</a>";
+    ?>
+  </div>
 
 <script>
           $("#formularioRegistro").submit(function() {

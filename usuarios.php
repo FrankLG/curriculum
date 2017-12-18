@@ -80,6 +80,7 @@
 
                     $resultado = $resultado["0"];
                     $_SESSION['id']=$resultado["0"];
+                    $_SESSION["tipo"]="normal";
                     return true;
                 }
 
@@ -355,5 +356,16 @@
             $datos["contra"]=$nuevaContra;            
             return $datos; 
         } 
+
+        public static function cantidadValidar(){
+            $bd = new BD();
+            $sql="SELECT COUNT('nombreal') FROM alumno WHERE validado=0";
+
+            $resultado=$bd->consultar($sql);
+            $resutlado=$resultado[0];
+            $resultado=$resultado[0];
+            $resultado=$resultado[0];
+            return $resultado;
+        }
         
     }

@@ -1,4 +1,5 @@
 <?php
+	ini_set("display_errors", 0);
     include("vistas.php");
     include("usuarios.php");
     include("titulos.php");
@@ -12,13 +13,18 @@
     else
         $accion="mostrarLogin";
 
+    
+
     switch($accion){
         case 'mostrarLogin':
 			//ensaje("hola","franlg.alm@gmail.com");
             if(isset($_SESSION['tipo'])){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
+                $datos["validar"]=Usuarios::cantidadValidar();
+                
                 Vistas::mostrar("vistaAdministrador",$datos);
+
             }else if(isset ($_SESSION["id"])){
                 mainUsuario();
             }else{
@@ -32,14 +38,17 @@
             $resultado= Usuarios::logueoAdmin($_REQUEST["user"], $_REQUEST["pass"]);
            
             if($resultado){
+                
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
+                $datos["validar"]=Usuarios::cantidadValidar();
                 Vistas::mostrar("vistaAdministrador",$datos);
             }else{
-		$resultado= Usuarios::logueoUser($_REQUEST["user"], $_REQUEST["pass"]);
+		          $resultado= Usuarios::logueoUser($_REQUEST["user"], $_REQUEST["pass"]);
                 if($resultado){
+                    
                    	mainUsuario();
-		}else{
+		          }else{
 					
                     $datos["tipoMensaje"]="error";
                     $datos["mensaje"]="El usuario no existe o esta a la espera de que un admin lo apruebe";
@@ -49,7 +58,7 @@
             break;
 
         case 'modificarUsuario':
-            if($_SESSION['tipo']=="admin"){
+            if(($_SESSION['tipo']=="normal" && $_REQUEST["id"]==$_SESSION["id"]) || $_SESSION["tipo"]=="admin"){
                 $_SESSION['id']=$_REQUEST['id'];
                 mainUsuarioAdmin($_SESSION['id']);
             }else{
@@ -82,7 +91,8 @@
         break;
             
         case "seleccionarImagen":
-            Vistas::mostrar("formularioImagen");
+            $datos["validar"]=Usuarios::cantidadValidar();
+            Vistas::mostrar("formularioImagen",$datos);
         break;
             
         case "insertarImagen":
@@ -147,6 +157,7 @@
                     Usuarios::borrarUsuario();
                     $datos["usuarios"]=Usuarios::usuariosParo();
                     $datos["tipo"]="normal";
+                    $datos["validar"]=Usuarios::cantidadValidar();
                     Vistas::mostrar("vistaAdministrador",$datos);
                 }else{
                     echo "No tiene permisos para realizar esta acción.";
@@ -187,6 +198,7 @@
             if($_SESSION['tipo']=="admin"){
                 $datos["tipo"]="normal";
                 $datos["usuarios"]=Usuarios::usuariosParo();
+                $datos["validar"]=Usuarios::cantidadValidar();
                 Vistas::mostrar("vistaAdministrador",$datos);
             }else{
                 echo "No tiene permisos para acceder a esta zona.";
@@ -194,9 +206,10 @@
 
             break;
         case "vistaAdmin2":
-            if($_SESSION["tipo"]="admin"){
+            if($_SESSION["tipo"]=="admin"){
                 $datos["tipo"]="trabajando";
                 $datos["usuarios"]=Usuarios::usuariosTrabajando();
+                $datos["validar"]=Usuarios::cantidadValidar();
                 Vistas::mostrar("vistaAdministrador",$datos);
             }else{
                 echo "No tiene permisos para acceder a esta zona";
@@ -207,6 +220,7 @@
             if($_SESSION['tipo']=="admin"){
                 $datos["usuarios"]=Usuarios::busqueda();
                 $datos["tipo"]="busqueda";
+                $datos["validar"]=Usuarios::cantidadValidar();
                 Vistas::mostrar("vistaAdministrador", $datos);
             }else{
                 echo "No tiene permisos para realizar esta acción";
@@ -216,6 +230,7 @@
             if($_SESSION['tipo']=="admin"){
                 $datos["tipo"]="validar";
                 $datos["usuarios"]=Usuarios::usuariosSinValidar();
+                $datos["validar"]=Usuarios::cantidadValidar();
                 Vistas::mostrar("vistaAdministrador",$datos);
             }else{
                 echo "No tienes permisos para realizar esta acción";
@@ -227,6 +242,7 @@
                 Usuarios::validarUsuario();
                 $datos["tipo"]="validar";
                 $datos["usuarios"]=Usuarios::usuariosSinValidar();
+                $datos["validar"]=Usuarios::cantidadValidar();
                 $idalumno= Vistas::mostrar("vistaAdministrador",$datos);
             }else{
                 echo "No tienes permisos para realizar esta accion";
@@ -234,8 +250,9 @@
             break;
         case "modificarInfoPersonal":
             if(isset($_SESSION['tipo']) || isset($_SESSION['id'])){
-                $tabla=Usuarios::infoUsuario($_SESSION['id']);
-                Vistas::mostrar("modificarInfoPersonal", $tabla);
+                $datos=Usuarios::infoUsuario($_SESSION['id']);
+                $datos["validar"]=Usuarios::cantidadValidar();
+                Vistas::mostrar("modificarInfoPersonal", $datos);
             }else{
                 echo "No tienes permiso o no estas logueado";
             }
@@ -257,7 +274,8 @@
             break;
         case "cambioContra":
             if(isset($_SESSION["tipo"]) || isset($_SESSION["id"])){
-                Vistas::mostrar("modificarContra");
+                $datos["validar"]=Usuarios::cantidadValidar();
+                Vistas::mostrar("modificarContra",$datos);
             }else{
                 echo "No tienes permisos o no estas logueado.";
             }
@@ -296,12 +314,9 @@
             Vistas::mostrar("mostrarPDF", $tabla);
             
             break;
-            
         default:
             echo "Error 404, La página solicitada no ha sido encontrada.";
     }
-
-    
 
 
 
@@ -312,6 +327,7 @@ function mainUsuario($msj = null) {
 		$tabla["mensaje"] = $msj;
 		$tabla["tablaIdioma"]=Idiomas::getIdioma($_SESSION['id']);
         $tabla["tablaOtro"] = Otros::getOtros($_SESSION['id']);
+        $tabla["validar"] = Usuarios::cantidadValidar();
 	Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);
 }
 
@@ -321,6 +337,7 @@ function mainUsuarioAdmin($id) {
 		$tabla["tablaHabilidad"] = Habilidades::getHabilidad($id);
 		$tabla["tablaIdioma"]=Idiomas::getIdioma($id);
         $tabla["tablaOtro"] = Otros::getOtros($id);
+        $tabla["validar"] = Usuarios::cantidadValidar();
 		Vistas::mostrar("mostrarInfoPersonal,mostrarTitulo,formularioTitulo,mostrarHabilidad,formularioHabilidad,mostrarIdioma,formularioIdioma,formularioOtro", $tabla);
 }
 
