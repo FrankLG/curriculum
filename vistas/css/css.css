@@ -313,6 +313,8 @@ input[type=number] {
 
 /*FIN Vista Usuario*/
 
+
+
   @media only screen and (width: 383px;){
         #apaisado { display:none;}
         #warning-message { display:block;}

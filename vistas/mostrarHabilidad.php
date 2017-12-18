@@ -1,6 +1,6 @@
 <?php
     // no hay manera de que se lleve el idusuario al index para modificar por id
-    echo "<h3>Habilidades y conocimientos extra</h3>";
+    echo "<br><h2>Habilidades y conocimientos extra</h2>";
 
     $tablaHabilidad = $datos["tablaHabilidad"];
 
@@ -9,6 +9,7 @@
     foreach ($tablaHabilidad as $dato){
         echo "<tr><td>".$dato[1]."</td>";
         echo "<td>".$dato[2]."</td>";
-        echo "<td><a href='index.php?accion=borrarHabilidad&id=".$dato['alumnoid']."&habilidad=".$dato['habilidadid']."'>Borrar</a></td></tr>";
+        echo "<td><a href='index.php?accion=borrarHabilidad&id=".$dato['alumnoid']."&habilidad=".$dato['habilidadid']."'><img src='vistas/css/basura.svg' id='iconoBasura'></a></td></tr>";
     }
 ?>
+
