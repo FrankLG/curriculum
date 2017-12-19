@@ -211,7 +211,7 @@
             //var_dump($_FILES['imagen']);
             //$documento = $_FILES['imagen'];
             
-            echo $_SESSION['id'];
+            
             
             $nombre_imagen=$_FILES['imagen']['name'];
             $tipo_imagen=$_FILES['imagen']['type'];
@@ -221,8 +221,12 @@
                 if (($_FILES["imagen"]["type"] == "image/jpeg")
                || ($_FILES["imagen"]["type"] == "image/jpg"))
                {
-            $carpeta_destino=$_SERVER['DOCUMENT_ROOT'].'/curriculum-master/imagenes/';
-   
+                    echo "has lllegao aqui que no es poco";
+            $carpeta_destino=$_SERVER['DOCUMENT_ROOT'].'/curriculum/imagenes/';
+            echo $_FILES['imagen']['tmp_name'];
+                    
+            echo $carpeta_destino;
+            
             move_uploaded_file($_FILES['imagen']['tmp_name'],$carpeta_destino.$_SESSION['id'].".jpg");
                     
               }else{
